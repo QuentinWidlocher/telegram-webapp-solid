@@ -1,33 +1,30 @@
-import { createEffect, mergeProps } from "solid-js";
+import { createEffect, mergeProps, onCleanup, onMount } from "solid-js";
 
 export type MainButtonProps = {
   onClick?: () => void;
   text?: string;
-  visible?: boolean;
 };
 
 export function MainButton(props: MainButtonProps) {
-  const merged = mergeProps({ visible: true }, props);
+  onMount(() => {
+    window.Telegram.WebApp.MainButton.show();
+  });
 
-  createEffect(function updateVisibility() {
-    if (merged.visible) {
-      window.Telegram.WebApp.MainButton.show();
-    } else {
-      window.Telegram.WebApp.MainButton.hide();
-    }
+  onCleanup(() => {
+    window.Telegram.WebApp.MainButton.hide();
   });
 
   createEffect(function updateText() {
-    if (merged.text) {
-      window.Telegram.WebApp.MainButton.setText(merged.text);
+    if (props.text) {
+      window.Telegram.WebApp.MainButton.setText(props.text);
     } else {
       window.Telegram.WebApp.MainButton.setText(undefined);
     }
   });
 
   createEffect(function updateOnClick() {
-    if (merged.onClick) {
-      window.Telegram.WebApp.MainButton.onClick(merged.onClick);
+    if (props.onClick) {
+      window.Telegram.WebApp.MainButton.onClick(props.onClick);
     } else {
       window.Telegram.WebApp.MainButton.onClick(undefined);
     }
