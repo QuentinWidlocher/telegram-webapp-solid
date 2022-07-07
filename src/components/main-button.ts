@@ -1,4 +1,4 @@
-import { createEffect, mergeProps, onCleanup, onMount } from "solid-js";
+import { createEffect, onCleanup, onMount } from "solid-js";
 
 export type MainButtonProps = {
   onClick?: () => void;
