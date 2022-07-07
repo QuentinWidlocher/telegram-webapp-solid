@@ -1,9 +1,12 @@
 import { Component, createSignal, Show } from "solid-js";
 import { BackButton } from "../src/components/back-button";
 import { MainButton } from "../src/components/main-button";
+import { createViewportSignal } from "../src/signals/viewport";
 
 const App: Component = () => {
   const [showMainButton, setShowMainButton] = createSignal(true);
+  let viewport = createViewportSignal();
+  let viewPortDebug = () => JSON.stringify(viewport());
 
   return (
     <>
@@ -15,6 +18,7 @@ const App: Component = () => {
         >
           ✈️
         </div>
+        <pre>{viewPortDebug()}</pre>
       </main>
       <Show when={showMainButton()}>
         <MainButton

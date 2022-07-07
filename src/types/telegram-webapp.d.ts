@@ -1,4 +1,4 @@
-export type WebApp = {
+declare interface WebApp {
   /**
    * A string with raw data transferred to the Web App, convenient for validating data.
    * WARNING: Validate data from this field before using it on the bot's server.
@@ -17,7 +17,7 @@ export type WebApp = {
    * The color scheme currently used in the Telegram app. Either “light” or “dark”.
    * Also available as the CSS variable var(--tg-color-scheme).
    */
-  colorScheme: string;
+  colorScheme: "light" | "dark";
   /**
    * An object containing the current theme settings used in the Telegram app.
    */
@@ -77,11 +77,66 @@ export type WebApp = {
   /**
    * A method that sets the app event handler.
    */
-  onEvent: (eventType: string, eventHandler: (...args) => any) => void;
+
+  /**
+   * Occurs whenever theme settings are changed in the user's Telegram app (including switching to night mode).
+   * eventHandler receives no parameters, new theme settings and color scheme can be received via this.themeParams and this.colorScheme respectively.
+   */
+  onEvent(eventType: "themeChanged", eventHandler: () => void): void;
+
+  /**
+   * Occurs when the visible section of the Web App is changed.
+   * eventHandler receives an object with the single field isStateStable. If isStateStable is true, the resizing of the Web App is finished. If it is false, the resizing is ongoing (the user is expanding or collapsing the Web App or an animated object is playing). The current value of the visible section’s height is available in this.viewportHeight.
+   */
+  onEvent(
+    eventType: "viewportChanged",
+    eventHandler: (isStateStable: boolean) => void
+  ): void;
+
+  /**
+   * Occurs when the main button is pressed.
+   */
+  onEvent(eventType: "mainButtonPressed", eventHandler: () => void): void;
+
+  /**
+   * Occurrs when the back button is pressed.
+   */
+  onEvent(eventType: "backButtonPressed", eventHandler: () => void): void;
+
+  /**
+   * Occurrs when the Settings item in context menu is pressed.
+   */
+  onEvent(eventType: "settingsButtonClicked", eventHandler: () => void): void;
+
+  /**
+   * Occurrs when the opened invoice is closed.
+   * eventHandler receives an object with the two fields: url – invoice link provided and status – one of the invoice statuses:
+   * - paid – invoice was paid successfully,
+   * - cancelled – user closed this invoice without paying,
+   * - failed – user tried to pay, but the payment was failed,
+   * - pending – the payment is still processing. The bot will receive a service message about a successful payment when the payment is successfully paid.
+   */
+  onEvent(
+    eventType: "invoiceClosed",
+    eventHandler: (obj: {
+      url: string;
+      status: "paid" | "cancelled" | "failed" | "pending";
+    }) => void
+  ): void;
+
   /**
    * A method that deletes a previously set event handler.
    */
-  offEvent: (eventType: string, eventHandler: (...args) => any) => void;
+  offEvent: (
+    eventType:
+      | "themeChanged"
+      | "viewportChanged"
+      | "mainButtonPressed"
+      | "backButtonPressed"
+      | "settingsButtonClicked"
+      | "invoiceClosed",
+    eventHandler: (...args) => any
+  ) => void;
   /**
    * A method used to send data to the bot. When this method is called, a service message is sent to the bot containing the data data of the length up to 4096 bytes, and the Web App is closed. See the field web_app_data in the class Message.
    * This method is only available for Web Apps launched via a Keyboard button.
@@ -116,13 +171,13 @@ export type WebApp = {
    * A method that closes the Web App.
    */
   close: () => void;
-};
+}
 
 /**
  * This object contains data that is transferred to the Web App when it is opened.
  * It is empty if the Web App was launched from a keyboard button.
  */
-export type WebAppInitData = {
+declare interface WebAppInitData {
   /**
    * A unique identifier for the Web App session, required for sending messages via the answerWebAppQuery method.
    */
@@ -159,12 +214,12 @@ export type WebAppInitData = {
    * A hash of all passed parameters, which the bot server can use to check their validity.
    */
   hash: string;
-};
+}
 
 /**
  * This object contains the data of the Web App user.
  */
-export type WebAppUser = {
+declare interface WebAppUser {
   /**
    * A unique identifier for the user or bot.
    * This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it.
@@ -196,12 +251,12 @@ export type WebAppUser = {
    * Only returned for Web Apps launched from the attachment menu.
    */
   photo_url?: string;
-};
+}
 
 /**
  * This object represents a chat.
  */
-export type WebAppChat = {
+declare interface WebAppChat {
   /**
    * Unique identifier for this chat.
    * This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it.
@@ -225,13 +280,13 @@ export type WebAppChat = {
    * Only returned for Web Apps launched from the attachment menu.
    */
   photo_url?: string;
-};
+}
 
 /**
  * Web Apps can adjust the appearance of the interface to match the Telegram user's app in real time.
  * This object contains the user's current theme settings:
  */
-export type ThemeParams = {
+declare interface ThemeParams {
   /**
    * Background color in the #RRGGBB format. Also available as the CSS variable var(--tg-theme-bg-color).
    */
@@ -260,12 +315,12 @@ export type ThemeParams = {
    * Secondary background color in the #RRGGBB format. Also available as the CSS variable var(--tg-theme-secondary-bg-color).
    */
   secondary_bg_color?: string;
-};
+}
 
 /**
  * This object controls the back button, which can be displayed in the header of the Web App in the Telegram interface.
  */
-export type BackButton = {
+declare interface BackButton {
   /**
    * Shows whether the button is visible. Set to false by default.
    */
@@ -288,12 +343,12 @@ export type BackButton = {
    * Bot API 6.1+ A method to hide the button.
    */
   hide: () => void;
-};
+}
 
 /**
  * This object controls the main button, which is displayed at the bottom of the Web App in the Telegram interface.
  */
-export type MainButton = {
+declare interface MainButton {
   /**
    * Current button text. Set to CONTINUE by default.
    */
@@ -376,9 +431,9 @@ export type MainButton = {
     is_active?: boolean;
     is_visible?: boolean;
   }) => void;
-};
+}
 
-export type HapticFeedback = {
+declare interface HapticFeedback {
   /**
    * A method tells that an impact occurred.
    * The Telegram app may play the appropriate haptics based on style value passed.
@@ -406,7 +461,7 @@ export type HapticFeedback = {
    * Do not use this feedback when the user makes or confirms a selection; use it only when the selection changes.
    */
   selectionChanged: () => void;
-};
+}
 
 declare global {
   interface Window {
@@ -415,3 +470,5 @@ declare global {
     };
   }
 }
+
+export {};
