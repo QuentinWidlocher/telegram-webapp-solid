@@ -1,23 +1,26 @@
 import { createSignal, onCleanup } from "solid-js";
 
-const [viewport, setViewport] = createSignal({
-  height: window.Telegram.WebApp.viewportHeight,
-  stableHeight: window.Telegram.WebApp.viewportStableHeight,
-});
+const [viewportHeight, setViewportHeight] = createSignal(window.Telegram.WebApp.viewportHeight);
+const [viewportStableHeight, setViewportStableHeight] = createSignal(window.Telegram.WebApp.viewportStableHeight);
 
-export function createViewportSignal() {
-  function updateViewport() {
-    setViewport({
-      height: window.Telegram.WebApp.viewportHeight,
-      stableHeight: window.Telegram.WebApp.viewportStableHeight,
-    });
+function updateViewport(isStable: boolean) {
+  if (isStable) {
+    setViewportStableHeight(window.Telegram.WebApp.viewportStableHeight);
   }
 
-  window.Telegram.WebApp.onEvent("viewportChanged", updateViewport);
+  setViewportHeight(window.Telegram.WebApp.viewportHeight);
+}
 
-  onCleanup(() => {
-    window.Telegram.WebApp.offEvent("viewportChanged", updateViewport);
-  });
+window.Telegram.WebApp.onEvent("viewportChanged", updateViewport);
 
-  return viewport;
+onCleanup(() => {
+  window.Telegram.WebApp.offEvent("viewportChanged", updateViewport);
+});
+
+export function createViewportHeightSignal() {
+  return viewportHeight;
+}
+
+export function createViewportStableHeightSignal() {
+  return viewportStableHeight;
 }

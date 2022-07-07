@@ -86,7 +86,9 @@ declare interface WebApp {
 
   /**
    * Occurs when the visible section of the Web App is changed.
-   * eventHandler receives an object with the single field isStateStable. If isStateStable is true, the resizing of the Web App is finished. If it is false, the resizing is ongoing (the user is expanding or collapsing the Web App or an animated object is playing). The current value of the visible section’s height is available in this.viewportHeight.
+   * eventHandler receives an object with the single field isStateStable. 
+   * If isStateStable is true, the resizing of the Web App is finished. If it is false, the resizing is ongoing (the user is expanding or collapsing the Web App or an animated object is playing). 
+   * The current value of the visible section’s height is available in this.viewportHeight.
    */
   onEvent(
     eventType: "viewportChanged",
@@ -471,4 +473,4 @@ declare global {
   }
 }
 
-export {};
+export { };
