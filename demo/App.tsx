@@ -1,4 +1,5 @@
 import { Component, createSignal, Show } from "solid-js";
+import { BackButton } from "../src/components/back-button";
 import { MainButton } from "../src/components/main-button";
 
 const App: Component = () => {
@@ -6,6 +7,7 @@ const App: Component = () => {
 
   return (
     <>
+      <BackButton onClick={() => console.log("backbutton")} />
       <main class="h-screen w-screen flex">
         <div
           class="m-auto text-5xl"
