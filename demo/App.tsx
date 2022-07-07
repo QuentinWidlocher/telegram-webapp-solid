@@ -6,7 +6,7 @@ import { createViewportSignal } from "../src/signals/viewport";
 const App: Component = () => {
   const [showMainButton, setShowMainButton] = createSignal(true);
   let viewport = createViewportSignal();
-  let viewPortDebug = () => JSON.stringify(viewport());
+  let viewPortDebug = () => JSON.stringify(viewport(), null, 2);
 
   return (
     <>
