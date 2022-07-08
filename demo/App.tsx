@@ -18,19 +18,19 @@ function hexToDarkerCssHsl(hex: string) {
 }
 
 const App: Component = () => {
-  // const theme = createThemeSignal();
-  const theme = (): {
-    themeParams: typeof window.Telegram.WebApp.themeParams;
-    colorScheme: typeof window.Telegram.WebApp.colorScheme;
-  } => ({
-    themeParams: {
-      button_color: "#1e90ff",
-      button_text_color: "#ffffff",
-      bg_color: "#ffffff",
-      text_color: "#000000",
-    },
-    colorScheme: "light",
-  });
+  const theme = createThemeSignal();
+  // const theme = (): {
+  //   themeParams: typeof window.Telegram.WebApp.themeParams;
+  //   colorScheme: typeof window.Telegram.WebApp.colorScheme;
+  // } => ({
+  //   themeParams: {
+  //     button_color: "#1e90ff",
+  //     button_text_color: "#ffffff",
+  //     bg_color: "#ffffff",
+  //     text_color: "#000000",
+  //   },
+  //   colorScheme: "light",
+  // });
 
   const [selectedTab, setSelectedTab] = createSignal("home");
 

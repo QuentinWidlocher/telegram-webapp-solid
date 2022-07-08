@@ -35,10 +35,10 @@ export function MainButtonPage() {
         class="btn btn-primary w-full"
         onClick={() => setShowMainButton((x) => !x)}
       >
-        {showMainButton ? "Hide main button" : "Show main button"}
+        {showMainButton() ? "Hide main button" : "Show main button"}
       </HapticButton>
 
-      <Show when={showMainButton}>
+      <Show when={showMainButton()}>
         <MainButton
           text={mainButtonLabel()}
           onClick={() => setShowMainButton(false)}
