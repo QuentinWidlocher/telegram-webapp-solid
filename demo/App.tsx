@@ -52,7 +52,7 @@ const App: Component = () => {
       </Show>
       <StableContainer
         class="flex flex-col space-y-5 p-5"
-        classList={{ dark: theme().colorScheme == "dark" }}
+        attr:data-mode={theme().colorScheme}
         style={{
           "--p": hexToCssHsl(theme().themeParams.button_color),
           "--pf": hexToDarkerCssHsl(theme().themeParams.button_color),
