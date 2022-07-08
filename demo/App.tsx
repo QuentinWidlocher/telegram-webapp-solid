@@ -4,6 +4,7 @@ import { HapticButton } from "../src/components/haptic-button";
 import { MainButton } from "../src/components/main-button";
 import { StableContainer } from "../src/components/stable-container";
 import { createExpandSignal } from "../src/signals/expand";
+import { createThemeSignal } from "../src/signals/theme";
 import {
   createViewportHeightSignal,
   createViewportStableHeightSignal,
@@ -27,6 +28,8 @@ const App: Component = () => {
 
   let [expanded, expand] = createExpandSignal();
 
+  const theme = createThemeSignal();
+
   const [mainBtnText, setMainBtnText] = createSignal("Let's go");
 
   return (
@@ -34,7 +37,10 @@ const App: Component = () => {
       <Show when={showBackButton}>
         <BackButton onClick={() => console.log("backbutton")} />
       </Show>
-      <StableContainer class="flex flex-col space-y-5 p-5">
+      <StableContainer
+        class="flex flex-col space-y-5 p-5"
+        classList={{ dark: theme().colorScheme == "dark" }}
+      >
         <HapticButton
           class="btn btn-primary"
           onClick={() => setShowBackButton((x) => !x)}
