@@ -30,6 +30,7 @@ const App: Component = () => {
   let [expanded, expand] = createExpandSignal();
 
   const theme = createThemeSignal();
+  let themeDebug = () => JSON.stringify(theme(), null, 2);
 
   const [mainBtnText, setMainBtnText] = createSignal("Let's go");
 
@@ -68,7 +69,24 @@ const App: Component = () => {
           class="input w-full"
           onInput={(e) => setMainBtnText(e.target.value)}
         />
-        <pre>{viewPortDebug()}</pre>
+        <div class="collapse border border-base-300 bg-base-100 rounded-box">
+          <input type="checkbox" />
+          <div class="collapse-title text-xl font-medium">
+            Viewport debug values
+          </div>
+          <div class="collapse-content">
+            <pre>{viewPortDebug()}</pre>
+          </div>
+        </div>
+        <div class="collapse border border-base-300 bg-base-100 rounded-box">
+          <input type="checkbox" />
+          <div class="collapse-title text-xl font-medium">
+            Theme debug values
+          </div>
+          <div class="collapse-content">
+            <pre>{themeDebug()}</pre>
+          </div>
+        </div>
       </StableContainer>
       <Show when={showMainButton()}>
         <MainButton
