@@ -1,14 +1,14 @@
 import { mergeProps } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
-import { createHapticSignal } from "../signals/haptic";
+import { createHapticImpactSignal } from "../signals/haptic";
 
 export type HapticButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: JSX.Element;
-  hapticForce?: Parameters<typeof createHapticSignal>[0];
+  hapticForce?: Parameters<typeof createHapticImpactSignal>[0];
 };
 
 export function HapticButton(props: HapticButtonProps) {
-  const hapticSignal = createHapticSignal(props.hapticForce ?? "medium");
+  const hapticSignal = createHapticImpactSignal(props.hapticForce ?? "medium");
   const merged = mergeProps(props, {
     onClick: (e) => {
       hapticSignal();

@@ -1,6 +1,7 @@
 import { Component, createSignal, Show } from "solid-js";
 import { BackButton } from "../src/components/back-button";
 import { HapticButton } from "../src/components/haptic-button";
+import { HapticInput } from "../src/components/haptic-input";
 import { MainButton } from "../src/components/main-button";
 import { StableContainer } from "../src/components/stable-container";
 import { createExpandSignal } from "../src/signals/expand";
@@ -62,9 +63,9 @@ const App: Component = () => {
           Expand
         </HapticButton>
         <HapticButton class="btn">Test</HapticButton>
-        <input
+        <HapticInput
           type="text"
-          class="input w-full max-w-xs"
+          class="input w-full"
           onInput={(e) => setMainBtnText(e.target.value)}
         />
         <pre>{viewPortDebug()}</pre>
