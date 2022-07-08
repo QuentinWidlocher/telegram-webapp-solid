@@ -6,6 +6,8 @@ export type MainButtonProps = {
 };
 
 export function MainButton(props: MainButtonProps) {
+  const originalText = window.Telegram.WebApp.MainButton.text;
+
   onMount(() => {
     window.Telegram.WebApp.MainButton.show();
   });
@@ -18,7 +20,7 @@ export function MainButton(props: MainButtonProps) {
     if (props.text) {
       window.Telegram.WebApp.MainButton.setText(props.text);
     } else {
-      window.Telegram.WebApp.MainButton.setText(null);
+      window.Telegram.WebApp.MainButton.setText(originalText);
     }
   });
 

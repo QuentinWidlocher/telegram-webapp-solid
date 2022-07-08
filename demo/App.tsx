@@ -1,7 +1,9 @@
 import hexToHsl from "hex-to-hsl";
-import { Component, createSignal, Match, Switch } from "solid-js";
+import { Component, createSignal, Match, Show, Switch } from "solid-js";
+import { HapticButton } from "../src/components/haptic-button";
 import { MainButton } from "../src/components/main-button";
 import { StableContainer } from "../src/components/stable-container";
+import { createExpandSignal } from "../src/signals/expand";
 import { createThemeSignal } from "../src/signals/theme";
 import { MainButtonPage } from "./MainButtonPage";
 
@@ -33,6 +35,7 @@ const App: Component = () => {
   // });
 
   const [selectedTab, setSelectedTab] = createSignal("home");
+  const [expanded, expand] = createExpandSignal();
 
   return (
     <StableContainer
@@ -50,12 +53,19 @@ const App: Component = () => {
       <section class="flex-1 flex flex-col">
         <Switch
           fallback={
-            <span
-              class="my-auto"
-              style={{ color: "var(--tg-theme-hint-color)" }}
-            >
-              Select a tab to browse through examples.
-            </span>
+            <div class="my-auto">
+              <span style={{ color: "var(--tg-theme-hint-color)" }}>
+                Select a tab to browse through examples.
+              </span>
+              <Show when={!expanded()}>
+                <HapticButton
+                  class="btn btn-ghost w-full mt-5"
+                  onClick={() => expand()}
+                >
+                  Expand to see the navbar
+                </HapticButton>
+              </Show>
+            </div>
           }
         >
           <Match when={selectedTab() == "main-button"}>
