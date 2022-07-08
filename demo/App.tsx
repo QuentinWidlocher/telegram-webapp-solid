@@ -51,8 +51,8 @@ const App: Component = () => {
         <BackButton onClick={() => console.log("backbutton")} />
       </Show>
       <StableContainer
-        class="flex flex-col space-y-5 p-5"
-        attr:data-mode={theme().colorScheme}
+        class="flex p-5"
+        data-mode={theme().colorScheme}
         style={{
           "--p": hexToCssHsl(theme().themeParams.button_color),
           "--pf": hexToDarkerCssHsl(theme().themeParams.button_color),
@@ -62,7 +62,7 @@ const App: Component = () => {
           "--nc": hexToCssHsl(theme().themeParams.text_color),
         }}
       >
-        <div class="flex-1 flex flex-col overflow-y-auto">
+        <div class="flex-1 flex flex-col space-y-5 overflow-y-auto">
           <HapticButton
             class="btn btn-primary"
             onClick={() => setShowBackButton((x) => !x)}
