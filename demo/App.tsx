@@ -5,6 +5,8 @@ import { MainButton } from "../src/components/main-button";
 import { StableContainer } from "../src/components/stable-container";
 import { createExpandSignal } from "../src/signals/expand";
 import { createThemeSignal } from "../src/signals/theme";
+import { createUserSignal } from "../src/signals/user";
+import { BackButtonPage } from "./BackButtonPage";
 import { MainButtonPage } from "./MainButtonPage";
 
 function hexToCssHsl(hex: string) {
@@ -21,21 +23,9 @@ function hexToDarkerCssHsl(hex: string) {
 
 const App: Component = () => {
   const theme = createThemeSignal();
-  // const theme = (): {
-  //   themeParams: typeof window.Telegram.WebApp.themeParams;
-  //   colorScheme: typeof window.Telegram.WebApp.colorScheme;
-  // } => ({
-  //   themeParams: {
-  //     button_color: "#1e90ff",
-  //     button_text_color: "#ffffff",
-  //     bg_color: "#ffffff",
-  //     text_color: "#000000",
-  //   },
-  //   colorScheme: "light",
-  // });
-
   const [selectedTab, setSelectedTab] = createSignal("home");
   const [expanded, expand] = createExpandSignal();
+  const user = createUserSignal();
 
   return (
     <StableContainer
@@ -53,16 +43,20 @@ const App: Component = () => {
       <section class="flex-1 flex flex-col">
         <Switch
           fallback={
-            <div class="my-auto">
-              <span style={{ color: "var(--tg-theme-hint-color)" }}>
+            <div class="my-auto flex flex-col">
+              <p
+                class="text-center w-full"
+                style={{ color: "var(--tg-theme-hint-color)" }}
+              >
+                Hi {user.first_name}, welcome to the demo app. <br />
                 Select a tab to browse through examples.
-              </span>
+              </p>
               <Show when={!expanded()}>
                 <HapticButton
                   class="btn btn-ghost w-full mt-5"
                   onClick={() => expand()}
                 >
-                  Expand to see the navbar
+                  Expand to see the tabs
                 </HapticButton>
               </Show>
             </div>
@@ -71,23 +65,26 @@ const App: Component = () => {
           <Match when={selectedTab() == "main-button"}>
             <MainButtonPage />
           </Match>
+          <Match when={selectedTab() == "back-button"}>
+            <BackButtonPage />
+          </Match>
         </Switch>
       </section>
 
       <div class="btm-nav text-primary">
-        <button
-          onClick={() => setSelectedTab("home")}
-          classList={{ active: selectedTab() == "home" }}
-          style={{ "background-color": `hsl(var(--p)/0.2)` }}
-        >
-          <span class="btm-nav-label">Home</span>
-        </button>
         <button
           onClick={() => setSelectedTab("main-button")}
           classList={{ active: selectedTab() == "main-button" }}
           style={{ "background-color": `hsl(var(--p)/0.2)` }}
         >
           <span class="btm-nav-label">Main Button</span>
+        </button>
+        <button
+          onClick={() => setSelectedTab("back-button")}
+          classList={{ active: selectedTab() == "back-button" }}
+          style={{ "background-color": `hsl(var(--p)/0.2)` }}
+        >
+          <span class="btm-nav-label">Back Button</span>
         </button>
       </div>
     </StableContainer>
