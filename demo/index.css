@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --tg-theme-secondary-bg-color: lightgray;
+  --tg-theme-text-color: black;
+  --tg-theme-bg-color: white;
+  --tg-theme-link-color: dodgerblue;
+  --tg-theme-button-color: dodgerblue;
+  --tg-theme-button-text-color: white;
+  --tg-viewport-stable-height: 100vh;
+}
+
 body {
   background-color: var(--tg-theme-bg-color);
   color: var(--tg-theme-text-color);

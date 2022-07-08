@@ -1,19 +1,20 @@
-import { Component, createSignal, Show } from 'solid-js'
-import { BackButton } from '../src/components/back-button'
-import { MainButton } from '../src/components/main-button'
-import { StableContainer } from '../src/components/stable-container'
-import { createExpandSignal } from '../src/signals/expand'
+import { Component, createSignal, Show } from "solid-js";
+import { BackButton } from "../src/components/back-button";
+import { HapticButton } from "../src/components/haptic-button";
+import { MainButton } from "../src/components/main-button";
+import { StableContainer } from "../src/components/stable-container";
+import { createExpandSignal } from "../src/signals/expand";
 import {
   createViewportHeightSignal,
   createViewportStableHeightSignal,
-} from '../src/signals/viewport'
+} from "../src/signals/viewport";
 
 const App: Component = () => {
-  const [showMainButton, setShowMainButton] = createSignal(true)
-  const [showBackButton, setShowBackButton] = createSignal(false)
+  const [showMainButton, setShowMainButton] = createSignal(true);
+  const [showBackButton, setShowBackButton] = createSignal(false);
 
-  let viewportHeight = createViewportHeightSignal()
-  let viewportStableHeight = createViewportStableHeightSignal()
+  let viewportHeight = createViewportHeightSignal();
+  let viewportStableHeight = createViewportStableHeightSignal();
   let viewPortDebug = () =>
     JSON.stringify(
       {
@@ -21,38 +22,38 @@ const App: Component = () => {
         viewportStableHeight: viewportStableHeight(),
       },
       null,
-      2,
-    )
+      2
+    );
 
-  let [expanded, expand] = createExpandSignal()
+  let [expanded, expand] = createExpandSignal();
 
-  const [mainBtnText, setMainBtnText] = createSignal("Let's go")
+  const [mainBtnText, setMainBtnText] = createSignal("Let's go");
 
   return (
     <>
       <Show when={showBackButton}>
-        <BackButton onClick={() => console.log('backbutton')} />
+        <BackButton onClick={() => console.log("backbutton")} />
       </Show>
-      <StableContainer class="flex flex-col space-y-5">
-        <button
+      <StableContainer class="flex flex-col space-y-5 p-5">
+        <HapticButton
           class="btn btn-primary"
           onClick={() => setShowBackButton((x) => !x)}
         >
           Toggle back button
-        </button>
-        <button
+        </HapticButton>
+        <HapticButton
           class="btn btn-primary"
           onClick={() => setShowMainButton((x) => !x)}
         >
           Toggle main button
-        </button>
-        <button
+        </HapticButton>
+        <HapticButton
           class="btn btn-primary"
           disabled={expanded()}
           onClick={() => expand()}
         >
           Expand
-        </button>
+        </HapticButton>
         <input
           type="text"
           class="input w-full max-w-xs"
@@ -67,7 +68,7 @@ const App: Component = () => {
         />
       </Show>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

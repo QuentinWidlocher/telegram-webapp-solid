@@ -61,7 +61,7 @@ declare interface WebApp {
   /**
    * An object for controlling haptic feedback.
    */
-  HapticFeedback: any;
+  HapticFeedback: HapticFeedback;
   /**
    * Returns true if the user's app supports a version of the Bot API that is equal to or higher than the version passed as the parameter.
    */
