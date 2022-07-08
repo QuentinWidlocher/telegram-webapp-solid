@@ -3,6 +3,7 @@ import { Component, createSignal, Match, Switch } from "solid-js";
 import { MainButton } from "../src/components/main-button";
 import { StableContainer } from "../src/components/stable-container";
 import { createThemeSignal } from "../src/signals/theme";
+import { MainButtonPage } from "./MainButtonPage";
 
 function hexToCssHsl(hex: string) {
   const [h, s, l] = hexToHsl(hex);
@@ -44,12 +45,12 @@ const App: Component = () => {
           }
         >
           <Match when={selectedTab() == "main-button"}>
-            <MainButton />
+            <MainButtonPage />
           </Match>
         </Switch>
       </section>
 
-      <div class="btm-nav mt-auto">
+      <div class="btm-nav">
         <button
           onClick={() => setSelectedTab("home")}
           classList={{ active: selectedTab() == "home" }}
