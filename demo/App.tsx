@@ -17,6 +17,11 @@ function hexToCssHsl(hex: string) {
   return `${h} ${s}% ${l}%`;
 }
 
+function hexToDarkerCssHsl(hex: string) {
+  const [h, s, l] = hexToHsl(hex);
+  return `${h} ${s}% ${l * 0.8}%`;
+}
+
 const App: Component = () => {
   const [showMainButton, setShowMainButton] = createSignal(true);
   const [showBackButton, setShowBackButton] = createSignal(false);
@@ -50,53 +55,57 @@ const App: Component = () => {
         classList={{ dark: theme().colorScheme == "dark" }}
         style={{
           "--p": hexToCssHsl(theme().themeParams.button_color),
+          "--pf": hexToDarkerCssHsl(theme().themeParams.button_color),
           "--pc": hexToCssHsl(theme().themeParams.button_text_color),
           "--n": hexToCssHsl(theme().themeParams.bg_color),
+          "--nf": hexToDarkerCssHsl(theme().themeParams.bg_color),
           "--nc": hexToCssHsl(theme().themeParams.text_color),
         }}
       >
-        <HapticButton
-          class="btn btn-primary"
-          onClick={() => setShowBackButton((x) => !x)}
-        >
-          Toggle back button
-        </HapticButton>
-        <HapticButton
-          class="btn btn-primary"
-          onClick={() => setShowMainButton((x) => !x)}
-        >
-          Toggle main button
-        </HapticButton>
-        <HapticButton
-          hapticForce="heavy"
-          class="btn btn-primary"
-          disabled={expanded()}
-          onClick={() => expand()}
-        >
-          Expand
-        </HapticButton>
-        <HapticButton class="btn">Test</HapticButton>
-        <HapticInput
-          type="text"
-          class="input w-full"
-          onInput={(e) => setMainBtnText(e.target.value)}
-        />
-        <div class="collapse border border-base-300 bg-base-100 rounded-box">
-          <input type="checkbox" />
-          <div class="collapse-title text-xl font-medium">
-            Viewport debug values
+        <div class="flex-1 flex flex-col overflow-y-auto">
+          <HapticButton
+            class="btn btn-primary"
+            onClick={() => setShowBackButton((x) => !x)}
+          >
+            Toggle back button
+          </HapticButton>
+          <HapticButton
+            class="btn btn-primary"
+            onClick={() => setShowMainButton((x) => !x)}
+          >
+            Toggle main button
+          </HapticButton>
+          <HapticButton
+            hapticForce="heavy"
+            class="btn btn-primary"
+            disabled={expanded()}
+            onClick={() => expand()}
+          >
+            Expand
+          </HapticButton>
+          <HapticButton class="btn">Test</HapticButton>
+          <HapticInput
+            type="text"
+            class="input w-full"
+            onInput={(e) => setMainBtnText(e.target.value)}
+          />
+          <div class="collapse border border-base-300 bg-base-100 rounded-box">
+            <input type="checkbox" />
+            <div class="collapse-title text-lg font-medium">
+              Viewport debug values
+            </div>
+            <div class="collapse-content">
+              <pre>{viewPortDebug()}</pre>
+            </div>
           </div>
-          <div class="collapse-content">
-            <pre>{viewPortDebug()}</pre>
-          </div>
-        </div>
-        <div class="collapse border border-base-300 bg-base-100 rounded-box">
-          <input type="checkbox" />
-          <div class="collapse-title text-xl font-medium">
-            Theme debug values
-          </div>
-          <div class="collapse-content">
-            <pre>{themeDebug()}</pre>
+          <div class="collapse border border-base-300 bg-base-100 rounded-box">
+            <input type="checkbox" />
+            <div class="collapse-title text-lg font-medium">
+              Theme debug values
+            </div>
+            <div class="collapse-content">
+              <pre>{themeDebug()}</pre>
+            </div>
           </div>
         </div>
       </StableContainer>
