@@ -9,7 +9,7 @@ export type HapticButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export function HapticButton(props: HapticButtonProps) {
   const hapticSignal = createHapticSignal(props.hapticForce ?? "medium");
-  mergeProps(props, {
+  const merged = mergeProps(props, {
     onClick: (e) => {
       hapticSignal();
       if (props.onClick && typeof props.onClick == "function") {
@@ -18,5 +18,5 @@ export function HapticButton(props: HapticButtonProps) {
     },
   });
 
-  return <button {...props}>{props.children}</button>;
+  return <button {...merged}>{props.children}</button>;
 }
