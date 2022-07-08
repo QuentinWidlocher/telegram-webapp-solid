@@ -13,8 +13,8 @@ import {
 } from "../src/signals/viewport";
 
 function hexToCssHsl(hex: string) {
-  const hsl = hexToHsl(hex);
-  return `${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%`;
+  const [h, s, l] = hexToHsl(hex);
+  return `${h} ${s}% ${l}%`;
 }
 
 const App: Component = () => {
