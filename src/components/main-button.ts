@@ -18,7 +18,7 @@ export function MainButton(props: MainButtonProps) {
     if (props.text) {
       window.Telegram.WebApp.MainButton.setText(props.text);
     } else {
-      window.Telegram.WebApp.MainButton.setText(undefined);
+      window.Telegram.WebApp.MainButton.setText(null);
     }
   });
 

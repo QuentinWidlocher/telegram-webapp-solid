@@ -68,14 +68,14 @@ const App: Component = () => {
         <button
           onClick={() => setSelectedTab("home")}
           classList={{ active: selectedTab() == "home" }}
-          style={{ "background-color": "var(--tg-theme-hint-color)" }}
+          style={{ "background-color": `hsl(var(--p)/0.2)` }}
         >
           <span class="btm-nav-label">Home</span>
         </button>
         <button
           onClick={() => setSelectedTab("main-button")}
           classList={{ active: selectedTab() == "main-button" }}
-          style={{ "background-color": "var(--tg-theme-hint-color)" }}
+          style={{ "background-color": `hsl(var(--p)/0.2)` }}
         >
           <span class="btm-nav-label">Main Button</span>
         </button>
