@@ -5,6 +5,7 @@
 :root {
   --tg-theme-secondary-bg-color: lightgray;
   --tg-theme-text-color: black;
+  --tg-theme-hint-color: lightgray;
   --tg-theme-bg-color: white;
   --tg-theme-link-color: dodgerblue;
   --tg-theme-button-color: dodgerblue;
