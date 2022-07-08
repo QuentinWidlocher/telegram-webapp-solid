@@ -1,7 +1,6 @@
 import hexToHsl from "hex-to-hsl";
 import { Component, createSignal, Match, Show, Switch } from "solid-js";
 import { HapticButton } from "../src/components/haptic-button";
-import { MainButton } from "../src/components/main-button";
 import { StableContainer } from "../src/components/stable-container";
 import { createExpandSignal } from "../src/signals/expand";
 import { createThemeSignal } from "../src/signals/theme";
