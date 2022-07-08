@@ -14,7 +14,7 @@ import {
 
 function hexToCssHsl(hex: string) {
   const hsl = hexToHsl(hex);
-  return `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
+  return `${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%`;
 }
 
 const App: Component = () => {
