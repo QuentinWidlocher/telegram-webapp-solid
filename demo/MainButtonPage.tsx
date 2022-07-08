@@ -48,7 +48,9 @@ export function MainButtonPage() {
             type="checkbox"
             class="toggle toggle-primary"
             onChange={(e) => {
-              hapticSignal();
+              if (e.target.checked) {
+                hapticSignal();
+              }
               setMainButtonHapticForce(e.target.checked);
             }}
             checked={mainButtonHapticForce()}

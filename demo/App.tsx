@@ -47,7 +47,7 @@ const App: Component = () => {
                 class="text-center w-full"
                 style={{ color: "var(--tg-theme-hint-color)" }}
               >
-                Hi {user.first_name}, welcome to the demo app. <br />
+                Hi {user?.first_name ?? ""}, welcome to the demo app. <br />
                 Select a tab to browse through examples.
               </p>
               <Show when={!expanded()}>
