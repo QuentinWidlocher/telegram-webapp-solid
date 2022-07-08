@@ -6,31 +6,45 @@ import { createThemeSignal } from "../src/signals/theme";
 import { MainButtonPage } from "./MainButtonPage";
 
 function hexToCssHsl(hex: string) {
+  if (!hex) return;
   const [h, s, l] = hexToHsl(hex);
   return `${h} ${s}% ${l}%`;
 }
 
 function hexToDarkerCssHsl(hex: string) {
+  if (!hex) return;
   const [h, s, l] = hexToHsl(hex);
   return `${h} ${s}% ${l * 0.8}%`;
 }
 
 const App: Component = () => {
-  const theme = createThemeSignal();
+  // const theme = createThemeSignal();
+  const theme = (): {
+    themeParams: typeof window.Telegram.WebApp.themeParams;
+    colorScheme: typeof window.Telegram.WebApp.colorScheme;
+  } => ({
+    themeParams: {
+      button_color: "#1e90ff",
+      button_text_color: "#ffffff",
+      bg_color: "#ffffff",
+      text_color: "#000000",
+    },
+    colorScheme: "light",
+  });
 
   const [selectedTab, setSelectedTab] = createSignal("home");
 
   return (
     <StableContainer
       class="flex flex-col p-5"
-      data-mode={theme().colorScheme}
+      data-theme={theme()?.colorScheme}
       style={{
-        "--p": hexToCssHsl(theme().themeParams.button_color),
-        "--pf": hexToDarkerCssHsl(theme().themeParams.button_color),
-        "--pc": hexToCssHsl(theme().themeParams.button_text_color),
-        "--n": hexToCssHsl(theme().themeParams.bg_color),
-        "--nf": hexToDarkerCssHsl(theme().themeParams.bg_color),
-        "--nc": hexToCssHsl(theme().themeParams.text_color),
+        "--p": hexToCssHsl(theme()?.themeParams?.button_color),
+        "--pf": hexToDarkerCssHsl(theme()?.themeParams?.button_color),
+        "--pc": hexToCssHsl(theme()?.themeParams?.button_text_color),
+        "--n": hexToCssHsl(theme()?.themeParams?.bg_color),
+        "--nf": hexToDarkerCssHsl(theme()?.themeParams?.bg_color),
+        "--nc": hexToCssHsl(theme()?.themeParams?.text_color),
       }}
     >
       <section class="flex-1 flex flex-col">
@@ -50,16 +64,18 @@ const App: Component = () => {
         </Switch>
       </section>
 
-      <div class="btm-nav">
+      <div class="btm-nav text-primary">
         <button
           onClick={() => setSelectedTab("home")}
           classList={{ active: selectedTab() == "home" }}
+          style={{ "background-color": "var(--tg-theme-hint-color)" }}
         >
           <span class="btm-nav-label">Home</span>
         </button>
         <button
           onClick={() => setSelectedTab("main-button")}
           classList={{ active: selectedTab() == "main-button" }}
+          style={{ "background-color": "var(--tg-theme-hint-color)" }}
         >
           <span class="btm-nav-label">Main Button</span>
         </button>

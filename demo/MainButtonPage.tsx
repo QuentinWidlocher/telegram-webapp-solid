@@ -12,16 +12,22 @@ export function MainButtonPage() {
   return (
     <div class="flex flex-col space-y-2">
       <div class="form-control">
+        <label class="label">
+          <span class="label-text">Change the main button's label</span>
+        </label>
         <div class="input-group">
           <HapticInput
             type="text"
+            class="input input-bordered w-full"
+            value={mainButtonLabel()}
             onInput={(e) => setMainButtonLabel(e.target.value)}
           />
-          <Show when={mainButtonLabel() != null}>
-            <HapticButton class="btn" onClick={() => setMainButtonLabel(null)}>
-              Clear
-            </HapticButton>
-          </Show>
+          <HapticButton
+            class="btn btn-primary btn-outline"
+            onClick={() => setMainButtonLabel(null)}
+          >
+            Clear
+          </HapticButton>
         </div>
       </div>
 
