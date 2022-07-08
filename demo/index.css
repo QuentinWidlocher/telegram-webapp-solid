@@ -10,6 +10,11 @@
   --tg-theme-button-color: dodgerblue;
   --tg-theme-button-text-color: white;
   --tg-viewport-stable-height: 100vh;
+
+  --p: hsl(var(--tg-theme-button-color));
+  --pc: hsl(var(--tg-theme-button-text-color));
+  --n: hsl(var(--tg-theme-bg-color));
+  --nc: hsl(var(--tg-theme-text-color));
 }
 
 body {
