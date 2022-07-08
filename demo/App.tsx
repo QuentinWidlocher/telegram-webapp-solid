@@ -6,10 +6,16 @@ import { MainButton } from "../src/components/main-button";
 import { StableContainer } from "../src/components/stable-container";
 import { createExpandSignal } from "../src/signals/expand";
 import { createThemeSignal } from "../src/signals/theme";
+import hexToHsl from "hex-to-hsl";
 import {
   createViewportHeightSignal,
   createViewportStableHeightSignal,
 } from "../src/signals/viewport";
+
+function hexToCssHsl(hex: string) {
+  const hsl = hexToHsl(hex);
+  return `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
+}
 
 const App: Component = () => {
   const [showMainButton, setShowMainButton] = createSignal(true);
@@ -42,6 +48,12 @@ const App: Component = () => {
       <StableContainer
         class="flex flex-col space-y-5 p-5"
         classList={{ dark: theme().colorScheme == "dark" }}
+        style={{
+          "--p": hexToCssHsl(theme().themeParams.button_color),
+          "--pc": hexToCssHsl(theme().themeParams.button_text_color),
+          "--n": hexToCssHsl(theme().themeParams.bg_color),
+          "--nc": hexToCssHsl(theme().themeParams.text_color),
+        }}
       >
         <HapticButton
           class="btn btn-primary"
