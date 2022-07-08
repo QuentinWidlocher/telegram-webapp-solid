@@ -31,22 +31,6 @@ export function MainButtonPage() {
           >
             Clear
           </HapticButton>
-          <div class="form-control">
-            <label class="label cursor-pointer">
-              <span class="label-text">
-                Use haptic feedback on the main button
-              </span>
-              <input
-                type="checkbox"
-                class="toggle toggle-primary"
-                onChange={(e) => {
-                  hapticSignal();
-                  setMainButtonHapticForce(e.target.checked);
-                }}
-                checked={mainButtonHapticForce()}
-              />
-            </label>
-          </div>
         </div>
       </div>
 
@@ -56,6 +40,21 @@ export function MainButtonPage() {
       >
         {showMainButton() ? "Hide main button" : "Show main button"}
       </HapticButton>
+
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text">Use haptic feedback on the main button</span>
+          <input
+            type="checkbox"
+            class="toggle toggle-primary"
+            onChange={(e) => {
+              hapticSignal();
+              setMainButtonHapticForce(e.target.checked);
+            }}
+            checked={mainButtonHapticForce()}
+          />
+        </label>
+      </div>
 
       <Show when={showMainButton()}>
         <MainButton
