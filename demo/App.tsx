@@ -61,7 +61,7 @@ const App: Component = () => {
         >
           Expand
         </HapticButton>
-        <HapticButton>Test</HapticButton>
+        <HapticButton class="btn">Test</HapticButton>
         <input
           type="text"
           class="input w-full max-w-xs"

@@ -1,3 +1,4 @@
+import { mergeProps } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 import { createHapticSignal } from "../signals/haptic";
 
@@ -8,18 +9,14 @@ export type HapticButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export function HapticButton(props: HapticButtonProps) {
   const hapticSignal = createHapticSignal(props.hapticForce ?? "medium");
+  mergeProps(props, {
+    onClick: (e) => {
+      hapticSignal();
+      if (props.onClick && typeof props.onClick == "function") {
+        props.onClick(e);
+      }
+    },
+  });
 
-  return (
-    <button
-      {...props}
-      onClick={(e) => {
-        hapticSignal();
-        if (props.onClick && typeof props.onClick == "function") {
-          props.onClick(e);
-        }
-      }}
-    >
-      {props.children}
-    </button>
-  );
+  return <button {...props}>{props.children}</button>;
 }
