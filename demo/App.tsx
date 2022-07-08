@@ -54,12 +54,14 @@ const App: Component = () => {
           Toggle main button
         </HapticButton>
         <HapticButton
+          hapticForce="heavy"
           class="btn btn-primary"
           disabled={expanded()}
           onClick={() => expand()}
         >
           Expand
         </HapticButton>
+        <HapticButton>Test</HapticButton>
         <input
           type="text"
           class="input w-full max-w-xs"
