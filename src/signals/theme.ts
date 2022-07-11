@@ -1,6 +1,9 @@
 import { createSignal, onCleanup } from "solid-js";
 
-const [theme, setTheme] = createSignal({
+const [theme, setTheme] = createSignal<{
+  themeParams: ThemeParams;
+  colorScheme: typeof window.Telegram.WebApp.colorScheme;
+}>({
   themeParams: window.Telegram.WebApp.themeParams,
   colorScheme: window.Telegram.WebApp.colorScheme,
 });

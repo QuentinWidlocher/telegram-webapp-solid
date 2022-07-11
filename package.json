@@ -1,12 +1,17 @@
 {
   "name": "telegram-webapp-solid",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "description": "SolidJS components for Telegram WebApps",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/QuentinWidlocher/telegram-webapp-solid.git"
+  },
   "scripts": {
     "dev": "vite --mode demo",
-    "build": "vite build",
+    "build": "vite build && tsc --emitDeclarationOnly; mv dist/src dist/types && rm -r dist/demo && rm dist/vite.config.d.ts",
     "build:demo": "vite build --mode demo",
-    "serve": "vite preview --mode demo"
+    "serve": "vite preview --mode demo",
+    "prepublish": "pnpm build"
   },
   "license": "GPL-3.0-or-later",
   "devDependencies": {
@@ -22,8 +27,12 @@
   "dependencies": {
     "solid-js": "^1.4.2"
   },
+  "files": [
+    "dist"
+  ],
   "main": "./dist/telegram-webapp-solid.umd.js",
   "module": "./dist/telegram-webapp-solid.es.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/telegram-webapp-solid.es.js",

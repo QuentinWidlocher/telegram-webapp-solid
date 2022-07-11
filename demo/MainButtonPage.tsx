@@ -23,7 +23,7 @@ export function MainButtonPage() {
             type="text"
             class="input input-bordered w-full"
             value={mainButtonLabel()}
-            onInput={(e) => setMainButtonLabel(e.target.value)}
+            onInput={(e) => setMainButtonLabel(e.currentTarget.value)}
           />
           <HapticButton
             class="btn btn-primary btn-outline"
@@ -48,10 +48,10 @@ export function MainButtonPage() {
             type="checkbox"
             class="toggle toggle-primary"
             onChange={(e) => {
-              if (e.target.checked) {
+              if (e.currentTarget.checked) {
                 hapticSignal();
               }
-              setMainButtonHapticForce(e.target.checked);
+              setMainButtonHapticForce(e.currentTarget.checked);
             }}
             checked={mainButtonHapticForce()}
           />

@@ -10,8 +10,6 @@ const baseConfig = {
 };
 
 export default defineConfig(({ mode }) => {
-  console.log("mode:", mode);
-
   if (mode == "production") {
     return {
       ...baseConfig,
@@ -20,7 +18,10 @@ export default defineConfig(({ mode }) => {
         lib: {
           entry: "src/index.ts",
           name: "telegram-webapp-solid",
+          formats: ["es", "umd"],
         },
+        sourcemap: true,
+
         rollupOptions: {
           external: ["solidJs"],
         },
