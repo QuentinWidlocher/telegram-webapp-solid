@@ -52,7 +52,7 @@ const App: Component = () => {
               </p>
               <Show when={!expanded()}>
                 <HapticButton
-                  class="btn btn-ghost w-full mt-5"
+                  class="btn btn-primary btn-outline w-full mt-5"
                   onClick={() => expand()}
                 >
                   Expand to see the tabs

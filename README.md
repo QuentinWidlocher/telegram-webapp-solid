@@ -1,34 +1,66 @@
+# Telegram Webapp for SolidJs
+
+A SolidJs wrapper for creating Telegram Webapp.
+
 ## Usage
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
-
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+Import this package in your app (Javascript or Typescript)
 
 ```bash
-$ npm install # or pnpm install or yarn install
+npm i --save telegram-webapp-solid
+yarn add telegram-webapp-solid
+pnpm i telegram-webapp-solid
 ```
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+Then you can use ready-made components or signals.
 
-## Available Scripts
+### Components
 
-In the project directory, you can run:
+#### BackButton
 
-### `npm dev` or `npm start`
+When this component is rendered, the app's exit button turns into a back button, where you can provide a `onClick` callback
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### HapticButton
 
-The page will reload if you make edits.<br>
+This is a standard `<button/>` except it vibrates when touched on mobile (you can pass a `hapticForce` prop to change the
+intensity)
 
-### `npm run build`
+#### MainButton
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+When this component is rendered, the app's main button appears on the bottom of the screen. You can provide a `text` prop and a
+`onClick` callback
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+#### StableContainer
 
-## Deployment
+A standard `<main/>` except it uses css variables provided by telegram to render only inside the space of the web app.
 
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+### Signals
+
+#### createExpandSignal
+
+Returns a tuple `[expanded, expand]` where `expanded` is a boolean indicating if the app is expanded and `expand` is a function
+that expands the app
+
+#### createHapticImpactSignal
+
+Takes a `hapticForce` prop and returns a function that vibrates the device with the given intensity
+
+- createThemeSignal
+
+#### createUserSignal
+
+Returns the user object from the Telegram API. (Warning : it uses initDataUnsafe for the moment)
+
+#### createViewportHeightSignal
+
+Returns a signal that gives the height of the viewport as it changes
+
+#### createViewportStableHeightSignal
+
+Returns a signal that gives the height of the viewport as it finish changing.
+
+## Demo
+
+You can check the demo by looking at the [demo](./demo) folder.
+
+You can also open the [live demo in telegram](https://t.me/TgWebappSolidDemoBot)
