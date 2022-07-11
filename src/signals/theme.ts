@@ -1,4 +1,5 @@
 import { createSignal, onCleanup } from "solid-js";
+import { ThemeParams } from "../types/telegram-webapp";
 
 const [theme, setTheme] = createSignal<{
   themeParams: ThemeParams;

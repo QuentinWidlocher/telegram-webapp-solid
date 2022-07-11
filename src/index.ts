@@ -1,3 +1,5 @@
+import * as Telegram from "./types/telegram-webapp";
+
 export { BackButton } from "./components/back-button";
 export type { BackButtonProps } from "./components/back-button";
 export { MainButton } from "./components/main-button";
@@ -22,4 +24,12 @@ export {
   createViewportHeightSignal,
   createViewportStableHeightSignal,
 } from "./signals/viewport";
-export type { BackButton as BackButtonType, HapticFeedback, MainButton as MainButtonType, ThemeParams, WebApp, WebAppChat, WebAppInitData, WebAppUser } from './types/telegram-webapp';
+
+
+declare global {
+  export interface Window {
+    Telegram: {
+      WebApp: Telegram.WebApp;
+    };
+  }
+}
