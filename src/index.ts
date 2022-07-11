@@ -10,7 +10,7 @@ export { HapticInput } from "./components/haptic-input";
 export type { HapticInputProps } from "./components/haptic-input";
 
 export { createExpandSignal } from "./signals/expand";
-export { createCloseSignal as getCloseSignal } from "./signals/close";
+export { createCloseSignal } from "./signals/close";
 export {
   createHapticImpactSignal,
   createHapticSelectionSignal,
