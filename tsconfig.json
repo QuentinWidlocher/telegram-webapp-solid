@@ -10,6 +10,7 @@
     "types": ["vite/client"],
     "noEmit": false,
     "declaration": true,
+    "emitDeclarationOnly": true,
     "declarationDir": "./dist",
     "isolatedModules": true
   }

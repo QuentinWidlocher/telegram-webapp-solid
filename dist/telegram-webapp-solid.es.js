@@ -367,21 +367,20 @@ function mergeProps(...sources) {
 }
 
 function BackButton(props) {
-    onMount(() => {
-        window.Telegram.WebApp.BackButton.show();
-    });
-    onCleanup(() => {
-        window.Telegram.WebApp.BackButton.hide();
-    });
-    createEffect(function updateOnClick() {
-        if (props.onClick) {
-            window.Telegram.WebApp.BackButton.onClick(props.onClick);
-        }
-        else {
-            window.Telegram.WebApp.BackButton.onClick(undefined);
-        }
-    });
-    return null;
+  onMount(() => {
+    window.Telegram.WebApp.BackButton.show();
+  });
+  onCleanup(() => {
+    window.Telegram.WebApp.BackButton.hide();
+  });
+  createEffect(function updateOnClick() {
+    if (props.onClick) {
+      window.Telegram.WebApp.BackButton.onClick(props.onClick);
+    } else {
+      window.Telegram.WebApp.BackButton.onClick(void 0);
+    }
+  });
+  return null;
 }
 
 function createHapticImpactSignal(style) {
@@ -392,36 +391,34 @@ function createHapticSelectionSignal() {
 }
 
 function MainButton(props) {
-    const originalText = window.Telegram.WebApp.MainButton.text;
-    const hapticSignal = createHapticImpactSignal(props.hapticForce);
-    onMount(() => {
-        window.Telegram.WebApp.MainButton.show();
-    });
-    onCleanup(() => {
-        window.Telegram.WebApp.MainButton.hide();
-    });
-    createEffect(function updateText() {
-        if (props.text) {
-            window.Telegram.WebApp.MainButton.setText(props.text);
+  const originalText = window.Telegram.WebApp.MainButton.text;
+  const hapticSignal = createHapticImpactSignal(props.hapticForce);
+  onMount(() => {
+    window.Telegram.WebApp.MainButton.show();
+  });
+  onCleanup(() => {
+    window.Telegram.WebApp.MainButton.hide();
+  });
+  createEffect(function updateText() {
+    if (props.text) {
+      window.Telegram.WebApp.MainButton.setText(props.text);
+    } else {
+      window.Telegram.WebApp.MainButton.setText(originalText);
+    }
+  });
+  createEffect(function updateOnClick() {
+    if (props.onClick) {
+      window.Telegram.WebApp.MainButton.onClick(() => {
+        if (props.hapticForce && hapticSignal) {
+          hapticSignal();
         }
-        else {
-            window.Telegram.WebApp.MainButton.setText(originalText);
-        }
-    });
-    createEffect(function updateOnClick() {
-        if (props.onClick) {
-            window.Telegram.WebApp.MainButton.onClick(() => {
-                if (props.hapticForce && hapticSignal) {
-                    hapticSignal();
-                }
-                props.onClick();
-            });
-        }
-        else {
-            window.Telegram.WebApp.MainButton.onClick(undefined);
-        }
-    });
-    return null;
+        props.onClick();
+      });
+    } else {
+      window.Telegram.WebApp.MainButton.onClick(void 0);
+    }
+  });
+  return null;
 }
 
 const booleans = ["allowfullscreen", "async", "autofocus", "autoplay", "checked", "controls", "default", "disabled", "formnovalidate", "hidden", "indeterminate", "ismap", "loop", "multiple", "muted", "nomodule", "novalidate", "open", "playsinline", "readonly", "required", "reversed", "seamless", "selected"];
@@ -860,6 +857,10 @@ function createExpandSignal() {
   return [expanded, expand];
 }
 
+function createCloseSignal() {
+  return window.Telegram.WebApp.close;
+}
+
 const [theme, setTheme] = createSignal({
   themeParams: window.Telegram.WebApp.themeParams,
   colorScheme: window.Telegram.WebApp.colorScheme
@@ -898,5 +899,5 @@ function createViewportStableHeightSignal() {
   return viewportStableHeight;
 }
 
-export { BackButton, HapticButton, HapticInput, MainButton, StableContainer, createExpandSignal, createHapticImpactSignal, createHapticSelectionSignal, createThemeSignal, createUserSignal, createViewportHeightSignal, createViewportStableHeightSignal };
+export { BackButton, HapticButton, HapticInput, MainButton, StableContainer, createExpandSignal, createHapticImpactSignal, createHapticSelectionSignal, createThemeSignal, createUserSignal, createViewportHeightSignal, createViewportStableHeightSignal, createCloseSignal as getCloseSignal };
 //# sourceMappingURL=telegram-webapp-solid.es.js.map

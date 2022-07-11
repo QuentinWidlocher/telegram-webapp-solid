@@ -1,6 +1,6 @@
 {
   "name": "telegram-webapp-solid",
-  "version": "0.1.5",
+  "version": "0.2.1",
   "description": "SolidJS components for Telegram WebApps",
   "repository": {
     "type": "git",
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite --mode demo",
-    "build": "vite build && tsc --emitDeclarationOnly; mv dist/src dist/types && rm -r dist/demo && rm dist/vite.config.d.ts",
+    "build": "vite build && tsc --emitDeclarationOnly; mv dist/src dist/types && cp -r src/types dist && rm -r dist/demo && rm dist/vite.config.d.ts",
     "build:demo": "vite build --mode demo",
     "serve": "vite preview --mode demo",
     "prepublish": "pnpm build"
