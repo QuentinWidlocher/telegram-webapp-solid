@@ -11,6 +11,7 @@ export type { HapticInputProps } from "./components/haptic-input";
 
 export { createExpandSignal } from "./signals/expand";
 export { createCloseSignal } from "./signals/close";
+export { createInitDataSignal } from "./signals/initData";
 export {
   createHapticImpactSignal,
   createHapticSelectionSignal,
@@ -21,3 +22,4 @@ export {
   createViewportHeightSignal,
   createViewportStableHeightSignal,
 } from "./signals/viewport";
+export type { BackButton as BackButtonType, HapticFeedback, MainButton as MainButtonType, ThemeParams, WebApp, WebAppChat, WebAppInitData, WebAppUser } from './types/telegram-webapp';

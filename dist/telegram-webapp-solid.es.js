@@ -861,6 +861,10 @@ function createCloseSignal() {
   return window.Telegram.WebApp.close;
 }
 
+function createInitDataSignal() {
+  return [() => window.Telegram.WebApp.initDataUnsafe, window.Telegram.WebApp.sendData];
+}
+
 const [theme, setTheme] = createSignal({
   themeParams: window.Telegram.WebApp.themeParams,
   colorScheme: window.Telegram.WebApp.colorScheme
@@ -899,5 +903,5 @@ function createViewportStableHeightSignal() {
   return viewportStableHeight;
 }
 
-export { BackButton, HapticButton, HapticInput, MainButton, StableContainer, createExpandSignal, createHapticImpactSignal, createHapticSelectionSignal, createThemeSignal, createUserSignal, createViewportHeightSignal, createViewportStableHeightSignal, createCloseSignal as getCloseSignal };
+export { BackButton, HapticButton, HapticInput, MainButton, StableContainer, createCloseSignal, createExpandSignal, createHapticImpactSignal, createHapticSelectionSignal, createInitDataSignal, createThemeSignal, createUserSignal, createViewportHeightSignal, createViewportStableHeightSignal };
 //# sourceMappingURL=telegram-webapp-solid.es.js.map
