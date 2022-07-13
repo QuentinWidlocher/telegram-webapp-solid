@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/node': ^18.0.3
   autoprefixer: ^10.4.7
   daisyui: ^2.18.1
   hex-to-hsl: ^1.0.2
@@ -15,6 +16,7 @@ dependencies:
   solid-js: 1.4.2
 
 devDependencies:
+  '@types/node': 18.0.3
   autoprefixer: 10.4.7_postcss@8.4.14
   daisyui: 2.18.1_ugi4xkrfysqkt4c4y6hkyfj344
   hex-to-hsl: 1.0.2
@@ -385,6 +387,10 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
+    dev: true
+
+  /@types/node/18.0.3:
+    resolution: {integrity: sha512-HzNRZtp4eepNitP+BD6k2L6DROIDG4Q0fm4x+dwfsr6LGmROENnok75VGw40628xf+iR24WeMFcHuuBDUAzzsQ==}
     dev: true
 
   /acorn-node/1.8.2:

@@ -1,6 +1,6 @@
 {
   "name": "telegram-webapp-solid",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "SolidJS components for Telegram WebApps",
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
   },
   "license": "GPL-3.0-or-later",
   "devDependencies": {
+    "@types/node": "^18.0.3",
     "autoprefixer": "^10.4.7",
     "daisyui": "^2.18.1",
     "hex-to-hsl": "^1.0.2",

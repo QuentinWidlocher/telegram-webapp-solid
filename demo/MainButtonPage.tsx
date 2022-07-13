@@ -1,16 +1,16 @@
-import { createSignal, Show } from "solid-js";
-import { HapticButton } from "../src/components/haptic-button";
-import { HapticInput } from "../src/components/haptic-input";
-import { MainButton } from "../src/components/main-button";
-import { createHapticImpactSignal } from "../src/signals/haptic";
+import { createSignal, Show } from 'solid-js'
+import { HapticButton } from '../src/components/haptic-button'
+import { HapticInput } from '../src/components/haptic-input'
+import { MainButton } from '../src/components/main-button'
+import { createHapticImpactSignal } from '../src/signals/haptic'
 
 export function MainButtonPage() {
-  const [showMainButton, setShowMainButton] = createSignal(false);
+  const [showMainButton, setShowMainButton] = createSignal(false)
   const [mainButtonLabel, setMainButtonLabel] = createSignal<string | null>(
-    null
-  );
-  const [mainButtonHapticForce, setMainButtonHapticForce] = createSignal(true);
-  const hapticSignal = createHapticImpactSignal("medium");
+    null,
+  )
+  const [mainButtonHapticForce, setMainButtonHapticForce] = createSignal(true)
+  const hapticSignal = createHapticImpactSignal('medium')
 
   return (
     <div class="flex flex-col space-y-2">
@@ -38,7 +38,7 @@ export function MainButtonPage() {
         class="btn btn-primary w-full"
         onClick={() => setShowMainButton((x) => !x)}
       >
-        {showMainButton() ? "Hide main button" : "Show main button"}
+        {showMainButton() ? 'Hide main button' : 'Show main button'}
       </HapticButton>
 
       <div class="form-control">
@@ -49,9 +49,9 @@ export function MainButtonPage() {
             class="toggle toggle-primary"
             onChange={(e) => {
               if (e.currentTarget.checked) {
-                hapticSignal();
+                hapticSignal()
               }
-              setMainButtonHapticForce(e.currentTarget.checked);
+              setMainButtonHapticForce(e.currentTarget.checked)
             }}
             checked={mainButtonHapticForce()}
           />
@@ -62,9 +62,9 @@ export function MainButtonPage() {
         <MainButton
           text={mainButtonLabel()}
           onClick={() => setShowMainButton(false)}
-          hapticForce={mainButtonHapticForce() ? "medium" : null}
+          hapticForce={mainButtonHapticForce() ? 'medium' : null}
         />
       </Show>
     </div>
-  );
+  )
 }

@@ -1,3 +1,3 @@
 export function createUserSignal() {
-  return window.Telegram.WebApp.initDataUnsafe.user;
+  return () => window.Telegram.WebApp.initDataUnsafe.user;
 }

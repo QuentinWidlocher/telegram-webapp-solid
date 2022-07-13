@@ -1,4 +1,4 @@
-import { createHapticImpactSignal } from "../signals/haptic";
+import { createHapticImpactSignal } from '../signals/haptic';
 export declare type MainButtonProps = {
     onClick?: () => void;
     text?: string;
