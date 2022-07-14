@@ -1,10 +1,12 @@
-import { createEffect, createSignal, onCleanup, onMount } from 'solid-js'
+import { createEffect, createSignal } from 'solid-js'
 import { createHapticImpactSignal } from '../signals/haptic'
 
 export type MainButtonProps = {
   onClick?: () => void
   text?: string | null
   show?: boolean
+  active?: boolean
+  progressVisible?: boolean
   hapticForce?: Parameters<typeof createHapticImpactSignal>[0]
 }
 
@@ -13,9 +15,13 @@ export function createMainButtonSignal(props: MainButtonProps) {
   const hapticSignal = createHapticImpactSignal(props.hapticForce);
 
   const [visible, setVisible] = createSignal(window.Telegram.WebApp.MainButton.isVisible);
+  const [active, setActive] = createSignal(window.Telegram.WebApp.MainButton.isActive);
+  const [progressVisible, setProgressVisible] = createSignal(window.Telegram.WebApp.MainButton.isProgressVisible);
   const [text, setText] = createSignal<string | null>(props.text ?? originalText);
 
   setVisible(props.show ?? visible());
+  setActive(props.active ?? active());
+  setProgressVisible(props.progressVisible ?? progressVisible());
 
   createEffect(function updateVisibility() {
     if (visible()) {
@@ -35,6 +41,22 @@ export function createMainButtonSignal(props: MainButtonProps) {
     }
   });
 
+  createEffect(function updateProgressVisibility() {
+    if (progressVisible()) {
+      window.Telegram.WebApp.MainButton.showProgress();
+    } else {
+      window.Telegram.WebApp.MainButton.hideProgress();
+    }
+  })
+
+  createEffect(function updateActive() {
+    if (active()) {
+      window.Telegram.WebApp.MainButton.enable();
+    } else {
+      window.Telegram.WebApp.MainButton.disable();
+    }
+  })
+
   createEffect(function updateOnClick() {
     if (props.onClick) {
       window.Telegram.WebApp.MainButton.onClick(() => {
@@ -53,5 +75,9 @@ export function createMainButtonSignal(props: MainButtonProps) {
     setVisible,
     text,
     setText,
+    progressVisible,
+    setProgressVisible,
+    active,
+    setActive,
   }
 }
