@@ -9,7 +9,7 @@ Import this package in your app (Javascript or Typescript)
 ```bash
 npm i --save telegram-webapp-solid
 yarn add telegram-webapp-solid
-pnpm i telegram-webapp-solid
+pnpm add telegram-webapp-solid
 ```
 
 Then you can use ready-made components or signals.
@@ -20,6 +20,8 @@ Then you can use ready-made components or signals.
 
 When this component is rendered, the app's exit button turns into a back button, where you can provide a `onClick` callback
 
+Also available as a signal with `createBackButtonSignal`
+
 #### HapticButton
 
 This is a standard `<button/>` except it vibrates when touched on mobile (you can pass a `hapticForce` prop to change the
@@ -27,8 +29,9 @@ intensity)
 
 #### MainButton
 
-When this component is rendered, the app's main button appears on the bottom of the screen. You can provide a `text` prop and a
-`onClick` callback
+When this component is rendered, the app's main button appears on the bottom of the screen. You can provide a `text` prop, an `active` boolean prop, a `progressVisible` boolean prop, a `hapticForce` setting and a `onClick` callback
+
+Also available as a signal with `createMainButtonSignal`
 
 #### StableContainer
 
@@ -45,7 +48,9 @@ that expands the app
 
 Takes a `hapticForce` prop and returns a function that vibrates the device with the given intensity
 
-- createThemeSignal
+#### createThemeSignal
+
+Returns an object with a `theme` key, which is a reactive theme object and also `setHeaderColor()` and `setBackgroundColor()`.
 
 #### createUserSignal
 
@@ -58,6 +63,18 @@ Returns a signal that gives the height of the viewport as it changes
 #### createViewportStableHeightSignal
 
 Returns a signal that gives the height of the viewport as it finish changing.
+
+#### createOpenSignal
+
+Returns an object with three functions to open links, Telegram links and invoices. Also provide a `onInvoiceClosed` listener.
+
+#### createVersionSignal
+
+Returns an object with a `version` key and a `isVersionAtLeast` function.
+
+#### createLifecycleSignal
+
+Returns an object with `ready` and `close` to tell the app if it's loaded or to close.
 
 ## Demo
 
