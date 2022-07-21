@@ -12,7 +12,6 @@ export { HapticInput } from "./components/haptic-input";
 export type { HapticInputProps } from "./components/haptic-input";
 
 export { createExpandSignal } from "./signals/expand";
-export { createCloseSignal } from "./signals/close";
 export { createDataSignal as createInitDataSignal } from "./signals/data";
 export {
   createHapticImpactSignal,
@@ -26,8 +25,9 @@ export {
   createViewportHeightSignal,
   createViewportStableHeightSignal,
 } from "./signals/viewport";
-
-export { LibTest } from "./components/libtest"
+export { createLifecycleSignal } from "./signals/lifecycle";
+export { createVersionSignal } from "./signals/version";
+export { createOpenSignal } from "./signals/open";
 
 declare global {
   export interface Window {
