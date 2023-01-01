@@ -1,13 +1,14 @@
 import hexToHsl from 'hex-to-hsl'
 import { Component, createSignal, Match, Show, Switch } from 'solid-js'
 import { HapticButton } from '../src/components/haptic-button'
-import { QrCodeButton } from '../src/components/qr-code-button'
 import { StableContainer } from '../src/components/stable-container'
 import { createExpandSignal } from '../src/signals/expand'
 import { createThemeSignal } from '../src/signals/theme'
 import { createUserSignal } from '../src/signals/user'
-import { BackButtonPage } from './BackButtonPage'
-import { MainButtonPage } from './MainButtonPage'
+import { logger } from './logger'
+import { LogsPage } from './LogsPage'
+import { MainBackButtonPage } from './MainBackButtonPage'
+import { PopupPage } from './PopupPage'
 import { QrCodePage } from './QrCodePage'
 
 function hexToCssHsl(hex: string) {
@@ -27,6 +28,10 @@ const App: Component = () => {
   const [selectedTab, setSelectedTab] = createSignal('home')
   const [expanded, expand] = createExpandSignal()
   const user = createUserSignal()
+
+  addEventListener('error', (event) => {
+    logger.error(event.message)
+  })
 
   return (
     <StableContainer
@@ -50,6 +55,8 @@ const App: Component = () => {
                 style={{ color: 'var(--tg-theme-hint-color)' }}
               >
                 Hi {user()?.first_name ?? ''}, welcome to the demo app. <br />
+                You're currently using a {window.Telegram.WebApp.platform}{' '}
+                platform. <br />
                 Select a tab to browse through examples.
               </p>
               <Show when={!expanded()}>
@@ -63,32 +70,28 @@ const App: Component = () => {
             </div>
           }
         >
-          <Match when={selectedTab() == 'main-button'}>
-            <MainButtonPage />
-          </Match>
-          <Match when={selectedTab() == 'back-button'}>
-            <BackButtonPage />
+          <Match when={selectedTab() == 'buttons'}>
+            <MainBackButtonPage />
           </Match>
           <Match when={selectedTab() == 'qr-code'}>
             <QrCodePage />
+          </Match>
+          <Match when={selectedTab() == 'popup'}>
+            <PopupPage />
+          </Match>
+          <Match when={selectedTab() == 'logs'}>
+            <LogsPage />
           </Match>
         </Switch>
       </section>
 
       <div class="btm-nav text-primary">
         <button
-          onClick={() => setSelectedTab('main-button')}
-          classList={{ active: selectedTab() == 'main-button' }}
+          onClick={() => setSelectedTab('buttons')}
+          classList={{ active: selectedTab() == 'buttons' }}
           style={{ 'background-color': `hsl(var(--p)/0.2)` }}
         >
-          <span class="btm-nav-label">Main Button</span>
-        </button>
-        <button
-          onClick={() => setSelectedTab('back-button')}
-          classList={{ active: selectedTab() == 'back-button' }}
-          style={{ 'background-color': `hsl(var(--p)/0.2)` }}
-        >
-          <span class="btm-nav-label">Back Button</span>
+          <span class="btm-nav-label">Buttons</span>
         </button>
         <button
           onClick={() => setSelectedTab('qr-code')}
@@ -96,6 +99,20 @@ const App: Component = () => {
           style={{ 'background-color': `hsl(var(--p)/0.2)` }}
         >
           <span class="btm-nav-label">QR Code</span>
+        </button>
+        <button
+          onClick={() => setSelectedTab('popup')}
+          classList={{ active: selectedTab() == 'popup' }}
+          style={{ 'background-color': `hsl(var(--p)/0.2)` }}
+        >
+          <span class="btm-nav-label">Popups</span>
+        </button>
+        <button
+          onClick={() => setSelectedTab('logs')}
+          classList={{ active: selectedTab() == 'logs' }}
+          style={{ 'background-color': `hsl(var(--p)/0.2)` }}
+        >
+          <span class="btm-nav-label">Logs</span>
         </button>
       </div>
     </StableContainer>

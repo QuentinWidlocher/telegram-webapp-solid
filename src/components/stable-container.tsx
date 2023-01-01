@@ -11,7 +11,7 @@ export function StableContainer(props: StableContainerProps) {
         height: 'var(--tg-viewport-stable-height)',
         width: '100vw',
         overflow: 'hidden',
-        backgroundColor: 'var(--tg-theme-bg-color)',
+        'background-color': 'var(--tg-theme-bg-color)',
         color: 'var(--tg-theme-text-color)',
       }}
       {...props}

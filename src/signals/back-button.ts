@@ -1,43 +1,53 @@
-import { createEffect, createSignal } from "solid-js";
-import { createHapticImpactSignal } from "./haptic";
+import { createEffect, createSignal } from 'solid-js'
+import { logger } from '../../demo/logger'
+import { createHapticImpactSignal } from './haptic'
 
 export type BackButtonProps = {
-  onClick?: () => void;
-  show?: boolean;
-  hapticForce?: Parameters<typeof createHapticImpactSignal>[0];
-};
+  onClick?: () => void
+  show?: boolean
+  hapticForce?: Parameters<typeof createHapticImpactSignal>[0]
+}
 
 export function createBackButtonSignal(props: BackButtonProps) {
-  const [visible, setVisible] = createSignal(window.Telegram.WebApp.BackButton.isVisible);
-  const hapticSignal = createHapticImpactSignal(props.hapticForce);
+  const hapticSignal = createHapticImpactSignal(props.hapticForce)
 
-  setVisible(props.show ?? visible());
+  const [visible, setVisible] = createSignal(
+    window.Telegram.WebApp.BackButton.isVisible,
+  )
 
-  createEffect(function updateVisibility() {
+  function updateVisibility() {
+    logger.log('BackButtonSignal updateVisibility')
     if (visible()) {
-      console.log('BackButtonSignal show')
-      window.Telegram.WebApp.BackButton.show();
+      logger.log('BackButtonSignal show')
+      window.Telegram.WebApp.BackButton.show()
     } else {
-      console.log('BackButtonSignal hide');
-      window.Telegram.WebApp.BackButton.hide();
+      logger.log('BackButtonSignal hide')
+      window.Telegram.WebApp.BackButton.hide()
     }
-  })
+  }
+
+  createEffect(updateVisibility)
 
   createEffect(function updateOnClick() {
     if (props.onClick) {
       window.Telegram.WebApp.BackButton.onClick(() => {
+        // logger.log('BackButtonSignal onClick')
         if (props.hapticForce && hapticSignal) {
-          hapticSignal();
+          hapticSignal()
         }
-        props.onClick();
-      });
+        props.onClick()
+      })
     } else {
-      window.Telegram.WebApp.BackButton.onClick(undefined);
+      window.Telegram.WebApp.BackButton.onClick(undefined)
     }
-  });
+  })
 
   return {
     visible,
-    setVisible,
-  }
+    setVisible: (v) => {
+      setVisible(v)
+      logger.log('BackButtonSignal setVisible', v)
+    },
+    updateVisibility,
+  } as const
 }

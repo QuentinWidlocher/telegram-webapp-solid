@@ -1,10 +1,11 @@
 import { createSignal } from 'solid-js'
-import { HapticInput } from '../src'
+import { createHapticImpactSignal, HapticInput } from '../src'
 import { QrCodeButton } from '../src/components/qr-code-button'
 
 export function QrCodePage() {
   let [data, setData] = createSignal<string | null>(null)
   let [message, setMessage] = createSignal('Aim at a QR Code')
+  let hapticImpact = createHapticImpactSignal('medium')
 
   return (
     <div class="space-y-5">
@@ -22,7 +23,10 @@ export function QrCodePage() {
       <QrCodeButton
         class="btn btn-primary w-full"
         message="Aim at  a QR Code"
-        onDataReceived={setData}
+        onDataReceived={(data) => {
+          hapticImpact()
+          setData(data)
+        }}
       >
         Scan a QR code
       </QrCodeButton>
