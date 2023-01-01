@@ -1,42 +1,44 @@
-import hexToHsl from "hex-to-hsl";
-import { Component, createSignal, Match, Show, Switch } from "solid-js";
-import { HapticButton } from "../src/components/haptic-button";
-import { StableContainer } from "../src/components/stable-container";
-import { createExpandSignal } from "../src/signals/expand";
-import { createThemeSignal } from "../src/signals/theme";
-import { createUserSignal } from "../src/signals/user";
-import { BackButtonPage } from "./BackButtonPage";
-import { MainButtonPage } from "./MainButtonPage";
+import hexToHsl from 'hex-to-hsl'
+import { Component, createSignal, Match, Show, Switch } from 'solid-js'
+import { HapticButton } from '../src/components/haptic-button'
+import { QrCodeButton } from '../src/components/qr-code-button'
+import { StableContainer } from '../src/components/stable-container'
+import { createExpandSignal } from '../src/signals/expand'
+import { createThemeSignal } from '../src/signals/theme'
+import { createUserSignal } from '../src/signals/user'
+import { BackButtonPage } from './BackButtonPage'
+import { MainButtonPage } from './MainButtonPage'
+import { QrCodePage } from './QrCodePage'
 
 function hexToCssHsl(hex: string) {
-  if (!hex) return;
-  const [h, s, l] = hexToHsl(hex);
-  return `${h} ${s}% ${l}%`;
+  if (!hex) return
+  const [h, s, l] = hexToHsl(hex)
+  return `${h} ${s}% ${l}%`
 }
 
 function hexToDarkerCssHsl(hex: string) {
-  if (!hex) return;
-  const [h, s, l] = hexToHsl(hex);
-  return `${h} ${s}% ${l * 0.8}%`;
+  if (!hex) return
+  const [h, s, l] = hexToHsl(hex)
+  return `${h} ${s}% ${l * 0.8}%`
 }
 
 const App: Component = () => {
-  const { theme } = createThemeSignal();
-  const [selectedTab, setSelectedTab] = createSignal("home");
-  const [expanded, expand] = createExpandSignal();
-  const user = createUserSignal();
+  const { theme } = createThemeSignal()
+  const [selectedTab, setSelectedTab] = createSignal('home')
+  const [expanded, expand] = createExpandSignal()
+  const user = createUserSignal()
 
   return (
     <StableContainer
       class="flex flex-col p-5"
       data-theme={theme()?.colorScheme}
       style={{
-        "--p": hexToCssHsl(theme()?.themeParams?.button_color),
-        "--pf": hexToDarkerCssHsl(theme()?.themeParams?.button_color),
-        "--pc": hexToCssHsl(theme()?.themeParams?.button_text_color),
-        "--n": hexToCssHsl(theme()?.themeParams?.bg_color),
-        "--nf": hexToDarkerCssHsl(theme()?.themeParams?.bg_color),
-        "--nc": hexToCssHsl(theme()?.themeParams?.text_color),
+        '--p': hexToCssHsl(theme()?.themeParams?.button_color),
+        '--pf': hexToDarkerCssHsl(theme()?.themeParams?.button_color),
+        '--pc': hexToCssHsl(theme()?.themeParams?.button_text_color),
+        '--n': hexToCssHsl(theme()?.themeParams?.bg_color),
+        '--nf': hexToDarkerCssHsl(theme()?.themeParams?.bg_color),
+        '--nc': hexToCssHsl(theme()?.themeParams?.text_color),
       }}
     >
       <section class="flex-1 flex flex-col">
@@ -45,9 +47,9 @@ const App: Component = () => {
             <div class="my-auto flex flex-col">
               <p
                 class="text-center w-full"
-                style={{ color: "var(--tg-theme-hint-color)" }}
+                style={{ color: 'var(--tg-theme-hint-color)' }}
               >
-                Hi {user()?.first_name ?? ""}, welcome to the demo app. <br />
+                Hi {user()?.first_name ?? ''}, welcome to the demo app. <br />
                 Select a tab to browse through examples.
               </p>
               <Show when={!expanded()}>
@@ -61,33 +63,43 @@ const App: Component = () => {
             </div>
           }
         >
-          <Match when={selectedTab() == "main-button"}>
+          <Match when={selectedTab() == 'main-button'}>
             <MainButtonPage />
           </Match>
-          <Match when={selectedTab() == "back-button"}>
+          <Match when={selectedTab() == 'back-button'}>
             <BackButtonPage />
+          </Match>
+          <Match when={selectedTab() == 'qr-code'}>
+            <QrCodePage />
           </Match>
         </Switch>
       </section>
 
       <div class="btm-nav text-primary">
         <button
-          onClick={() => setSelectedTab("main-button")}
-          classList={{ active: selectedTab() == "main-button" }}
-          style={{ "background-color": `hsl(var(--p)/0.2)` }}
+          onClick={() => setSelectedTab('main-button')}
+          classList={{ active: selectedTab() == 'main-button' }}
+          style={{ 'background-color': `hsl(var(--p)/0.2)` }}
         >
           <span class="btm-nav-label">Main Button</span>
         </button>
         <button
-          onClick={() => setSelectedTab("back-button")}
-          classList={{ active: selectedTab() == "back-button" }}
-          style={{ "background-color": `hsl(var(--p)/0.2)` }}
+          onClick={() => setSelectedTab('back-button')}
+          classList={{ active: selectedTab() == 'back-button' }}
+          style={{ 'background-color': `hsl(var(--p)/0.2)` }}
         >
           <span class="btm-nav-label">Back Button</span>
         </button>
+        <button
+          onClick={() => setSelectedTab('qr-code')}
+          classList={{ active: selectedTab() == 'qr-code' }}
+          style={{ 'background-color': `hsl(var(--p)/0.2)` }}
+        >
+          <span class="btm-nav-label">QR Code</span>
+        </button>
       </div>
     </StableContainer>
-  );
-};
+  )
+}
 
-export default App;
+export default App
