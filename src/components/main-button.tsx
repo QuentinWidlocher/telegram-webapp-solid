@@ -20,12 +20,11 @@ export function MainButton(props: MainButtonProps) {
     show: true,
   })
 
-  onMount(() => {
-    mainButton.setVisible(true)
-  })
-
   onCleanup(() => {
     mainButton.setVisible(false)
+    mainButton.setActive(true)
+    mainButton.setProgressVisible(false)
+    mainButton.setText(null)
   })
 
   createEffect(() => {

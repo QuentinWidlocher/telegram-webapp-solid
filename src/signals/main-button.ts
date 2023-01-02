@@ -1,4 +1,4 @@
-import { createEffect, createSignal } from 'solid-js'
+import { createEffect, createSignal, onCleanup } from 'solid-js'
 import { createHapticImpactSignal } from '../signals/haptic'
 import { createCleanupEffect } from '../utils/create-cleanup-effect'
 
@@ -11,8 +11,9 @@ export type MainButtonProps = {
   hapticForce?: Parameters<typeof createHapticImpactSignal>[0]
 }
 
+const originalText = window.Telegram.WebApp.MainButton.text
+
 export function createMainButtonSignal(props: MainButtonProps) {
-  const originalText = window.Telegram.WebApp.MainButton.text
   const hapticSignal = createHapticImpactSignal(props.hapticForce)
 
   const [visible, setVisible] = createSignal(
@@ -24,13 +25,12 @@ export function createMainButtonSignal(props: MainButtonProps) {
   const [progressVisible, setProgressVisible] = createSignal(
     window.Telegram.WebApp.MainButton.isProgressVisible,
   )
-  const [text, setText] = createSignal<string | null>(
-    props.text ?? originalText,
-  )
+  const [text, setText] = createSignal<string | null>(originalText)
 
-  setVisible(props.show ?? visible())
-  setActive(props.active ?? active())
-  setProgressVisible(props.progressVisible ?? progressVisible())
+  setVisible((visible) => props.show ?? visible)
+  setActive((active) => props.active ?? active)
+  setProgressVisible((visible) => props.progressVisible ?? visible)
+  setText((text) => props.text ?? text)
 
   createCleanupEffect(function updateVisibility() {
     if (visible()) {
@@ -64,17 +64,23 @@ export function createMainButtonSignal(props: MainButtonProps) {
     }
   })
 
+  function handleClick() {
+    if (props.hapticForce && hapticSignal) {
+      hapticSignal()
+    }
+    props.onClick()
+  }
+
   createEffect(function updateOnClick() {
     if (props.onClick) {
-      window.Telegram.WebApp.MainButton.onClick(() => {
-        if (props.hapticForce && hapticSignal) {
-          hapticSignal()
-        }
-        props.onClick()
-      })
+      window.Telegram.WebApp.MainButton.onClick(handleClick)
     } else {
-      window.Telegram.WebApp.MainButton.onClick(undefined)
+      window.Telegram.WebApp.MainButton.offClick(handleClick)
     }
+  })
+
+  onCleanup(() => {
+    window.Telegram.WebApp.MainButton.offClick(handleClick)
   })
 
   return {
