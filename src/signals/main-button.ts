@@ -8,10 +8,11 @@ export type MainButtonProps = {
   show?: boolean
   active?: boolean
   progressVisible?: boolean
+  mandatory?: boolean
   hapticForce?: Parameters<typeof createHapticImpactSignal>[0]
 }
 
-const originalText = window.Telegram.WebApp.MainButton.text
+export const originalText = window.Telegram.WebApp.MainButton.text
 
 export function createMainButtonSignal(props: MainButtonProps) {
   const hapticSignal = createHapticImpactSignal(props.hapticForce)
@@ -25,6 +26,7 @@ export function createMainButtonSignal(props: MainButtonProps) {
   const [progressVisible, setProgressVisible] = createSignal(
     window.Telegram.WebApp.MainButton.isProgressVisible,
   )
+  const [mandatory, setMandatory] = createSignal(props.mandatory ?? false)
   const [text, setText] = createSignal<string | null>(originalText)
 
   setVisible((visible) => props.show ?? visible)
@@ -64,10 +66,23 @@ export function createMainButtonSignal(props: MainButtonProps) {
     }
   })
 
+  createCleanupEffect(function updateMandatory() {
+    if (mandatory()) {
+      window.Telegram.WebApp.enableClosingConfirmation()
+    } else {
+      window.Telegram.WebApp.disableClosingConfirmation()
+    }
+  })
+
   function handleClick() {
     if (props.hapticForce && hapticSignal) {
       hapticSignal()
     }
+
+    if (mandatory()) {
+      setMandatory(false)
+    }
+
     props.onClick()
   }
 
@@ -92,5 +107,7 @@ export function createMainButtonSignal(props: MainButtonProps) {
     setProgressVisible,
     active,
     setActive,
+    mandatory,
+    setMandatory,
   }
 }

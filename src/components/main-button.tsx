@@ -7,6 +7,8 @@ export type MainButtonProps = {
   text?: string
   active?: boolean
   progressVisible?: boolean
+  mandatory?: boolean
+  onMandatoryChange?: (mandatory: boolean) => void
   hapticForce?: Parameters<typeof createHapticImpactSignal>[0]
 }
 
@@ -17,7 +19,12 @@ export function MainButton(props: MainButtonProps) {
     hapticForce: props.hapticForce,
     active: props.active,
     progressVisible: props.progressVisible,
+    mandatory: props.mandatory,
     show: true,
+  })
+
+  createEffect(() => {
+    props.onMandatoryChange?.(mainButton.mandatory())
   })
 
   onCleanup(() => {
@@ -25,12 +32,14 @@ export function MainButton(props: MainButtonProps) {
     mainButton.setActive(true)
     mainButton.setProgressVisible(false)
     mainButton.setText(null)
+    mainButton.setMandatory(false)
   })
 
   createEffect(() => {
     mainButton.setActive(props.active)
     mainButton.setProgressVisible(props.progressVisible)
     mainButton.setText(props.text)
+    mainButton.setMandatory(props.mandatory)
   })
 
   return null

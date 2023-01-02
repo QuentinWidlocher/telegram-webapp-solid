@@ -7,15 +7,18 @@ import {
   BackButton,
   createVersionSignal,
 } from '../../src'
+import { originalText } from '../../src/signals/main-button'
 import { Collapse } from '../components/collapse'
 import { logger } from '../logger'
 
 export function ButtonsPage() {
+  const [mainButtonDate, setMainButtonDate] = createSignal<Date | null>(null)
   const [showMainButton, setShowMainButton] = createSignal(false)
   const [mainButtonLabel, setMainButtonLabel] = createSignal<string | null>(
     null,
   )
   const [mainButtonActive, setMainButtonActive] = createSignal(true)
+  const [mainButtonMandatory, setMainButtonMandatory] = createSignal(false)
   const [
     mainButtonProgressVisible,
     setMainButtonProgressVisible,
@@ -100,6 +103,24 @@ export function ButtonsPage() {
             />
           </label>
         </div>
+        <div class="form-control">
+          <label class="label cursor-pointer">
+            <span class="label-text">
+              Main button is mandatory (to exit the app)
+            </span>
+            <input
+              type="checkbox"
+              class="toggle toggle-primary"
+              onChange={(e) => {
+                if (e.currentTarget.checked) {
+                  hapticSignal()
+                }
+                setMainButtonMandatory(e.currentTarget.checked)
+              }}
+              checked={mainButtonMandatory()}
+            />
+          </label>
+        </div>
         <HapticButton
           class="btn btn-primary w-full"
           onClick={() => setShowMainButton((x) => !x)}
@@ -110,13 +131,22 @@ export function ButtonsPage() {
           <MainButton
             active={mainButtonActive()}
             progressVisible={mainButtonProgressVisible()}
-            hapticForce={mainButtonHapticForce() ? 'medium' : null}
-            text={mainButtonLabel()}
+            hapticForce={mainButtonHapticForce() ? 'medium' : undefined}
+            text={`${mainButtonLabel() ?? originalText} ${
+              mainButtonMandatory() ? '(mandatory)' : ''
+            }`}
+            mandatory={mainButtonMandatory()}
+            onMandatoryChange={setMainButtonMandatory}
             onClick={() => {
               logger.log('Main button clicked')
-              setShowMainButton(false)
+              setMainButtonDate(new Date())
             }}
           />
+        </Show>
+        <Show when={mainButtonDate()}>
+          <p class="text-center text-sm text-hint mt-5">
+            Main button clicked at {mainButtonDate().toLocaleTimeString()}
+          </p>
         </Show>
       </Collapse>
 

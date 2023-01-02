@@ -12,6 +12,9 @@ module.exports = {
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
+      colors: {
+        'hint': 'var(--tg-theme-hint-color)'
+      },
       dropShadow: {
         outline: [
           '1px 0px 0px black',
