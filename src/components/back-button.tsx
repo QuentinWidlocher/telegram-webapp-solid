@@ -22,7 +22,6 @@ export function BackButton(props: BackButtonProps) {
   onCleanup(() => {
     logger.log('BackButton unmounted')
     backButton.setVisible(false)
-    backButton.updateVisibility()
   })
 
   return null

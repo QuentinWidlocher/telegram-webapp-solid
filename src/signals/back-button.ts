@@ -6,6 +6,7 @@ import {
   onCleanup,
 } from 'solid-js'
 import { logger } from '../../demo/logger'
+import { createCleanupEffect } from '../utils/create-cleanup-effect'
 import { createHapticImpactSignal } from './haptic'
 
 export type BackButtonProps = {
@@ -21,23 +22,17 @@ export function createBackButtonSignal(props: BackButtonProps) {
     window.Telegram.WebApp.BackButton.isVisible,
   )
 
-  function updateVisibility() {
-    logger.log('BackButtonSignal updateVisibility')
+  createCleanupEffect(function updateVisibility() {
     if (visible()) {
-      logger.log('BackButtonSignal show')
       window.Telegram.WebApp.BackButton.show()
     } else {
-      logger.log('BackButtonSignal hide')
       window.Telegram.WebApp.BackButton.hide()
     }
-  }
-
-  createEffect(updateVisibility)
+  })
 
   createEffect(function updateOnClick() {
     if (props.onClick) {
       window.Telegram.WebApp.BackButton.onClick(() => {
-        // logger.log('BackButtonSignal onClick')
         if (props.hapticForce && hapticSignal) {
           hapticSignal()
         }
@@ -48,16 +43,8 @@ export function createBackButtonSignal(props: BackButtonProps) {
     }
   })
 
-  onCleanup(() => {
-    updateVisibility()
-  })
-
   return {
     visible,
-    setVisible: (v) => {
-      setVisible(v)
-      logger.log('BackButtonSignal setVisible', v)
-    },
-    updateVisibility,
-  } as const
+    setVisible,
+  }
 }
