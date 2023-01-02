@@ -5,16 +5,18 @@ export type StableContainerProps = JSX.HTMLAttributes<HTMLElement> & {
 }
 
 export function StableContainer(props: StableContainerProps) {
+  console.log(typeof props.style == 'object' ? props.style : {})
   return (
     <main
+      {...props}
       style={{
-        height: 'var(--tg-viewport-stable-height)',
-        width: '100vw',
-        overflow: 'hidden',
         'background-color': 'var(--tg-theme-bg-color)',
         color: 'var(--tg-theme-text-color)',
+        height: 'var(--tg-viewport-stable-height)',
+        overflow: 'hidden',
+        width: '100vw',
+        ...(typeof props.style == 'object' ? props.style : {}),
       }}
-      {...props}
     >
       {props.children}
     </main>

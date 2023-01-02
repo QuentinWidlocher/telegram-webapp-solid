@@ -13,7 +13,7 @@ export function DefaultPage() {
         style={{ color: 'var(--tg-theme-hint-color)' }}
       >
         Hi {user()?.first_name ?? ''}, welcome to the demo app. <br />
-        You're currently using a {
+        You're currently using the {
           window.Telegram.WebApp.platform
         } platform. <br />
         Select a tab to browse through examples.
@@ -26,6 +26,12 @@ export function DefaultPage() {
           Expand to see the tabs
         </HapticButton>
       </Show>
+      <p
+        class="text-center w-full"
+        style={{ color: 'var(--tg-theme-hint-color)' }}
+      >
+        Below are the colors used in the theme.
+      </p>
       <ColorSwatch />
     </div>
   )

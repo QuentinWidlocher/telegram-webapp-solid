@@ -4,6 +4,7 @@ export type Tab = 'buttons' | 'qr-code' | 'popup' | 'logs'
 
 export function BottomNavigation(props: {
   selectedTab: Tab
+  enableLogs?: boolean
   onSelectedTabChange: (tab: Tab) => void
 }) {
   const { checkIfAvailable } = createVersionSignal()
@@ -17,7 +18,7 @@ export function BottomNavigation(props: {
       >
         <span class="btm-nav-label">Buttons</span>
       </button>
-      {checkIfAvailable('showScanQrPopup') && (
+      {(import.meta.env.DEV || checkIfAvailable('showScanQrPopup')) && (
         <button
           onClick={() => props.onSelectedTabChange('qr-code')}
           classList={{ active: props.selectedTab == 'qr-code' }}
@@ -26,7 +27,7 @@ export function BottomNavigation(props: {
           <span class="btm-nav-label">QR Code</span>
         </button>
       )}
-      {checkIfAvailable('showPopup') && (
+      {(import.meta.env.DEV || checkIfAvailable('showPopup')) && (
         <button
           onClick={() => props.onSelectedTabChange('popup')}
           classList={{ active: props.selectedTab == 'popup' }}
@@ -35,13 +36,15 @@ export function BottomNavigation(props: {
           <span class="btm-nav-label">Popups</span>
         </button>
       )}
-      <button
-        onClick={() => props.onSelectedTabChange('logs')}
-        classList={{ active: props.selectedTab == 'logs' }}
-        style={{ 'background-color': `hsl(var(--p)/0.2)` }}
-      >
-        <span class="btm-nav-label">Logs</span>
-      </button>
+      {props.enableLogs && (
+        <button
+          onClick={() => props.onSelectedTabChange('logs')}
+          classList={{ active: props.selectedTab == 'logs' }}
+          style={{ 'background-color': `hsl(var(--p)/0.2)` }}
+        >
+          <span class="btm-nav-label">Logs</span>
+        </button>
+      )}
     </div>
   )
 }

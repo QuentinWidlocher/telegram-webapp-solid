@@ -1,3 +1,5 @@
+type HexString = `#${string}`
+
 export declare interface WebApp {
   /**
    * A string with raw data transferred to the Web App, convenient for validating data.
@@ -49,11 +51,11 @@ export declare interface WebApp {
   /**
    * Current header color in the #RRGGBB format.
    */
-  headerColor: string
+  headerColor: HexString
   /**
    * Current background color in the #RRGGBB format.
    */
-  backgroundColor: string
+  backgroundColor: HexString
   /**
    * An object for controlling the back button which can be displayed in the header of the Web App in the Telegram interface.
    */
@@ -73,11 +75,11 @@ export declare interface WebApp {
   /**
    * A method that sets the app header color. You can only pass Telegram.WebApp.themeParams.bg_color or Telegram.WebApp.themeParams.secondary_bg_color as a color or you can use keywords bg_color, secondary_bg_color instead.
    */
-  setHeaderColor: (color: string) => void
+  setHeaderColor: (color: 'bg_color' | 'secondary_bg_color') => void
   /**
    * A method that sets the app background color in the #RRGGBB format or you can use keywords bg_color, secondary_bg_color instead.
    */
-  setBackgroundColor: (color: string) => void
+  setBackgroundColor: (color: HexString | 'bg_color' | 'secondary_bg_color') => void
   /**
    * 	Bot API 6.2+ A method that enables a confirmation dialog while the user is trying to close the Web App.
    */
@@ -332,31 +334,31 @@ export declare interface ThemeParams {
   /**
    * Background color in the #RRGGBB format. Also available as the CSS variable var(--tg-theme-bg-color).
    */
-  bg_color?: string
+  bg_color?: HexString
   /**
    * Main text color in the #RRGGBB format. Also available as the CSS variable var(--tg-theme-text-color).
    */
-  text_color?: string
+  text_color?: HexString
   /**
    * Hint text color in the #RRGGBB format. Also available as the CSS variable var(--tg-theme-hint-color).
    */
-  hint_color?: string
+  hint_color?: HexString
   /**
    * Link color in the #RRGGBB format. Also available as the CSS variable var(--tg-theme-link-color).
    */
-  link_color?: string
+  link_color?: HexString
   /**
    * Button color in the #RRGGBB format. Also available as the CSS variable var(--tg-theme-button-color).
    */
-  button_color?: string
+  button_color?: HexString
   /**
    * Button text color in the #RRGGBB format. Also available as the CSS variable var(--tg-theme-button-text-color).
    */
-  button_text_color?: string
+  button_text_color?: HexString
   /**
    * Secondary background color in the #RRGGBB format. Also available as the CSS variable var(--tg-theme-secondary-bg-color).
    */
-  secondary_bg_color?: string
+  secondary_bg_color?: HexString
 }
 
 /**

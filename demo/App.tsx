@@ -6,7 +6,7 @@ import { BottomNavigation, Tab } from './components/bottom-navigation'
 import { logger } from './logger'
 import { DefaultPage } from './pages/DefaultPage'
 import { LogsPage } from './pages/LogsPage'
-import { MainBackButtonPage } from './pages/MainBackButtonPage'
+import { ButtonsPage } from './pages/ButtonsPage'
 import { PopupPage } from './pages/PopupPage'
 import { QrCodePage } from './pages/QrCodePage'
 
@@ -38,7 +38,7 @@ const App: Component = () => {
 
   return (
     <StableContainer
-      class="flex flex-col p-5"
+      class="flex flex-col pb-16"
       data-theme={theme()?.colorScheme}
       style={{
         '--p': hexToCssHsl(theme()?.themeParams?.button_color),
@@ -51,12 +51,13 @@ const App: Component = () => {
         '--b2': hexToDarkerCssHsl(theme()?.themeParams?.bg_color),
         '--b3': hexToEvenDarkerCssHsl(theme()?.themeParams?.bg_color),
         '--bc': hexToCssHsl(theme()?.themeParams?.text_color),
+        'overflow-y': 'auto',
       }}
     >
-      <section class="flex-1 flex flex-col">
+      <section class="flex-1 flex flex-col m-5">
         <Switch fallback={<DefaultPage />}>
           <Match when={selectedTab() == 'buttons'}>
-            <MainBackButtonPage />
+            <ButtonsPage />
           </Match>
           <Match when={selectedTab() == 'qr-code'}>
             <QrCodePage />
