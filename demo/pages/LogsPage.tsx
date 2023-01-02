@@ -1,5 +1,5 @@
 import { For } from 'solid-js'
-import { logs, setLogs } from './logger'
+import { setLogs, logs } from '../logger'
 
 export function LogsPage() {
   return (

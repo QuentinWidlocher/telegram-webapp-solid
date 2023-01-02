@@ -1,7 +1,5 @@
-import { createSignal, Show } from 'solid-js'
-import { AlertButton } from '../src/components/alert-button'
-import { ConfirmButton } from '../src/components/confirm-button'
-import { PopupButton } from '../src/components/popup-button'
+import { createSignal } from 'solid-js'
+import { PopupButton, AlertButton, ConfirmButton } from '../../src'
 
 export function PopupPage() {
   let [popupResult, setPopupResult] = createSignal<string | null>(null)

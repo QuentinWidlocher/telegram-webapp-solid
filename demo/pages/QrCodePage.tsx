@@ -1,6 +1,5 @@
 import { createSignal } from 'solid-js'
-import { createHapticImpactSignal, HapticInput } from '../src'
-import { QrCodeButton } from '../src/components/qr-code-button'
+import { createHapticImpactSignal, HapticInput, QrCodeButton } from '../../src'
 
 export function QrCodePage() {
   let [data, setData] = createSignal<string | null>(null)

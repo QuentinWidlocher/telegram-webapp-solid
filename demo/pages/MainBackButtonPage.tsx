@@ -1,10 +1,12 @@
 import { createSignal, Show } from 'solid-js'
-import { BackButton } from '../src'
-import { HapticButton } from '../src/components/haptic-button'
-import { HapticInput } from '../src/components/haptic-input'
-import { MainButton } from '../src/components/main-button'
-import { createHapticImpactSignal } from '../src/signals/haptic'
-import { logger } from './logger'
+import {
+  createHapticImpactSignal,
+  HapticInput,
+  HapticButton,
+  MainButton,
+  BackButton,
+} from '../../src'
+import { logger } from '../logger'
 
 export function MainBackButtonPage() {
   const [showMainButton, setShowMainButton] = createSignal(false)
@@ -24,7 +26,7 @@ export function MainBackButtonPage() {
 
   return (
     <div class="flex flex-col space-y-2">
-      <div class="collapse collapse-plus border border-base-300 bg-base-100 rounded-box">
+      <div class="collapse collapse-arrow shadow-sm bg-base-200 rounded-box">
         <input type="checkbox" />
         <div class="collapse-title text-xl font-medium">Main Button</div>
         <div class="collapse-content">
@@ -118,7 +120,7 @@ export function MainBackButtonPage() {
         </div>
       </div>
 
-      <div class="collapse collapse-plus border border-base-300 bg-base-100 rounded-box">
+      <div class="collapse collapse-arrow shadow-sm bg-base-200 rounded-box">
         <input type="checkbox" />
         <div class="collapse-title text-xl font-medium">Back Button</div>
         <div class="collapse-content">
