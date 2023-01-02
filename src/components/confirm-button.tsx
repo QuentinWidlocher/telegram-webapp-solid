@@ -1,6 +1,5 @@
 import { createSignal, mergeProps, Show } from 'solid-js'
 import { JSX } from 'solid-js/jsx-runtime'
-import { logger } from '../../demo/logger'
 import { Confirm } from './Confirm'
 
 export type ConfirmButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -30,7 +29,6 @@ export function ConfirmButton(props: ConfirmButtonProps) {
           message={props.message}
           onButtonClick={(pressedTrue) => {
             props.onClose?.(pressedTrue)
-            logger.log('onConfirmClose')
             setShowConfirm(false)
           }}
         />

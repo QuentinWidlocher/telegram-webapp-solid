@@ -1,11 +1,11 @@
 import hexToHsl from 'hex-to-hsl'
 import { Component, createSignal, Match, Show, Switch } from 'solid-js'
+import { createVersionSignal } from '../src'
 import { HapticButton } from '../src/components/haptic-button'
 import { StableContainer } from '../src/components/stable-container'
 import { createExpandSignal } from '../src/signals/expand'
 import { createThemeSignal } from '../src/signals/theme'
 import { createUserSignal } from '../src/signals/user'
-import { checkIfAvailable } from '../src/utils/version'
 import { logger } from './logger'
 import { LogsPage } from './LogsPage'
 import { MainBackButtonPage } from './MainBackButtonPage'
@@ -26,6 +26,7 @@ function hexToDarkerCssHsl(hex: string) {
 
 const App: Component = () => {
   const { theme } = createThemeSignal()
+  const { checkIfAvailable } = createVersionSignal()
   const [selectedTab, setSelectedTab] = createSignal('home')
   const [expanded, expand] = createExpandSignal()
   const user = createUserSignal()

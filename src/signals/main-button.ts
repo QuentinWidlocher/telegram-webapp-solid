@@ -1,6 +1,6 @@
 import { createEffect, createSignal } from 'solid-js'
-import { logger } from '../../demo/logger'
 import { createHapticImpactSignal } from '../signals/haptic'
+import { createCleanupEffect } from '../utils/create-cleanup-effect'
 
 export type MainButtonProps = {
   onClick?: () => void
@@ -32,17 +32,13 @@ export function createMainButtonSignal(props: MainButtonProps) {
   setActive(props.active ?? active())
   setProgressVisible(props.progressVisible ?? progressVisible())
 
-  function updateVisibility() {
+  createCleanupEffect(function updateVisibility() {
     if (visible()) {
-      logger.log('MainButtonSignal show')
       window.Telegram.WebApp.MainButton.show()
     } else {
-      logger.log('MainButtonSignal hide')
       window.Telegram.WebApp.MainButton.hide()
     }
-  }
-
-  createEffect(updateVisibility)
+  })
 
   createEffect(function updateText() {
     if (text()) {
@@ -90,6 +86,5 @@ export function createMainButtonSignal(props: MainButtonProps) {
     setProgressVisible,
     active,
     setActive,
-    updateVisibility,
   }
 }

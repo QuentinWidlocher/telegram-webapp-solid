@@ -26,7 +26,6 @@ export function MainButton(props: MainButtonProps) {
 
   onCleanup(() => {
     mainButton.setVisible(false)
-    mainButton.updateVisibility()
   })
 
   createEffect(() => {

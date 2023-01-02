@@ -15,7 +15,7 @@
 
 html,
 body {
-  background-color: var(--tg-theme-bg-color) !important;
+  background-color: var(--tg-theme-bg-color);
   color: var(--tg-theme-text-color);
 }
 

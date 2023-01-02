@@ -1,6 +1,5 @@
 import { createSignal, mergeProps, Show } from 'solid-js'
 import { JSX } from 'solid-js/jsx-runtime'
-import { logger } from '../../demo/logger'
 import { PopupParams } from '../types/telegram-webapp'
 import { Popup } from './popup'
 
@@ -33,7 +32,6 @@ export function PopupButton(props: PopupButtonProps) {
           title={props.title}
           onButtonClick={(id) => {
             props.onPopupClose?.(id)
-            logger.log('onPopupClose', id)
             setShowPopup(false)
           }}
         />

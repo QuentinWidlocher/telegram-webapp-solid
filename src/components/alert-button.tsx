@@ -1,6 +1,5 @@
 import { createSignal, mergeProps, Show } from 'solid-js'
 import { JSX } from 'solid-js/jsx-runtime'
-import { logger } from '../../demo/logger'
 import { Alert } from './alert'
 
 export type AlertButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -30,7 +29,6 @@ export function AlertButton(props: AlertButtonProps) {
           message={props.message}
           onButtonClick={() => {
             props.onAlertClose?.()
-            logger.log('onAlertClose')
             setShowAlert(false)
           }}
         />

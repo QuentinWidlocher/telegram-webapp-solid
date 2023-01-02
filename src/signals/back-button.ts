@@ -1,11 +1,4 @@
-import {
-  createEffect,
-  createRenderEffect,
-  createSignal,
-  on,
-  onCleanup,
-} from 'solid-js'
-import { logger } from '../../demo/logger'
+import { createEffect, createSignal } from 'solid-js'
 import { createCleanupEffect } from '../utils/create-cleanup-effect'
 import { createHapticImpactSignal } from './haptic'
 

@@ -1,6 +1,6 @@
 {
   "name": "telegram-webapp-solid",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "SolidJS components for Telegram WebApps",
   "repository": {
     "type": "git",
