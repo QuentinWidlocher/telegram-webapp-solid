@@ -79,9 +79,13 @@ export declare interface WebApp {
    */
   setBackgroundColor: (color: string) => void
   /**
-   * A method that sets the app event handler.
+   * 	Bot API 6.2+ A method that enables a confirmation dialog while the user is trying to close the Web App.
    */
-
+  enableClosingConfirmation(): () => void
+  /**
+   * 	Bot API 6.2+ A method that disables the confirmation dialog while the user is trying to close the Web App.
+   */
+  disableClosingConfirmation(): () => void
   /**
    * Occurs whenever theme settings are changed in the user's Telegram app (including switching to night mode).
    * eventHandler receives no parameters, new theme settings and color scheme can be received via this.themeParams and this.colorScheme respectively.
@@ -153,7 +157,11 @@ export declare interface WebApp {
    *
    * Note that this method can be called only in response to the user interaction with the Web App interface (e.g. click inside the Web App or on the main button)
    */
-  openLink: (url: string) => void
+  openLink(url: string): void
+  /**
+   * Bot API 6.4+ If the optional options parameter is passed with the field try_instant_view=true, the link will be opened in Instant View mode if possible.
+   */
+  openLink(url: string, options: { try_instant_view: boolean }): void
   /**
    * A method that opens a telegram link inside Telegram app. The Web App will be closed.
    */

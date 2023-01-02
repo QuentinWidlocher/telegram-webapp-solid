@@ -1,4 +1,4 @@
-import { Accessor, createSignal, onCleanup } from "solid-js";
+import { Accessor, createSignal } from "solid-js";
 
 const [expanded, setExpanded] = createSignal(window.Telegram.WebApp.isExpanded);
 

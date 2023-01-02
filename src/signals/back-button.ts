@@ -1,4 +1,10 @@
-import { createEffect, createSignal } from 'solid-js'
+import {
+  createEffect,
+  createRenderEffect,
+  createSignal,
+  on,
+  onCleanup,
+} from 'solid-js'
 import { logger } from '../../demo/logger'
 import { createHapticImpactSignal } from './haptic'
 
@@ -40,6 +46,10 @@ export function createBackButtonSignal(props: BackButtonProps) {
     } else {
       window.Telegram.WebApp.BackButton.onClick(undefined)
     }
+  })
+
+  onCleanup(() => {
+    updateVisibility()
   })
 
   return {

@@ -5,6 +5,7 @@ import { StableContainer } from '../src/components/stable-container'
 import { createExpandSignal } from '../src/signals/expand'
 import { createThemeSignal } from '../src/signals/theme'
 import { createUserSignal } from '../src/signals/user'
+import { checkIfAvailable } from '../src/utils/version'
 import { logger } from './logger'
 import { LogsPage } from './LogsPage'
 import { MainBackButtonPage } from './MainBackButtonPage'
@@ -67,6 +68,58 @@ const App: Component = () => {
                   Expand to see the tabs
                 </HapticButton>
               </Show>
+              <div class="flex flex-wrap gap-2 mt-5 justify-center">
+                <div
+                  class="w-24 h-24 aspect-square rounded-xl shadow-lg grid place-content-center"
+                  style={{
+                    'background-color': 'var(--tg-theme-secondary-bg-color)',
+                  }}
+                >
+                  <span class="text-xs bg-black text-white">
+                    secondary-bg-color
+                  </span>
+                </div>
+                <div
+                  class="w-24 h-24 aspect-square rounded-xl shadow-lg grid place-content-center"
+                  style={{ 'background-color': 'var(--tg-theme-text-color)' }}
+                >
+                  <span class="text-xs bg-black text-white">text-color</span>
+                </div>
+                <div
+                  class="w-24 h-24 aspect-square rounded-xl shadow-lg grid place-content-center"
+                  style={{ 'background-color': 'var(--tg-theme-hint-color)' }}
+                >
+                  <span class="text-xs bg-black text-white">hint-color</span>
+                </div>
+                <div
+                  class="w-24 h-24 aspect-square rounded-xl shadow-lg grid place-content-center"
+                  style={{ 'background-color': 'var(--tg-theme-bg-color)' }}
+                >
+                  <span class="text-xs bg-black text-white">bg-color</span>
+                </div>
+                <div
+                  class="w-24 h-24 aspect-square rounded-xl shadow-lg grid place-content-center"
+                  style={{ 'background-color': 'var(--tg-theme-link-color)' }}
+                >
+                  <span class="text-xs bg-black text-white">link-color</span>
+                </div>
+                <div
+                  class="w-24 h-24 aspect-square rounded-xl shadow-lg grid place-content-center"
+                  style={{ 'background-color': 'var(--tg-theme-button-color)' }}
+                >
+                  <span class="text-xs bg-black text-white">button-color</span>
+                </div>
+                <div
+                  class="w-24 h-24 aspect-square rounded-xl shadow-lg grid place-content-center"
+                  style={{
+                    'background-color': 'var(--tg-theme-button-text-color)',
+                  }}
+                >
+                  <span class="text-xs bg-black text-white">
+                    button-text-color
+                  </span>
+                </div>
+              </div>
             </div>
           }
         >
@@ -93,20 +146,24 @@ const App: Component = () => {
         >
           <span class="btm-nav-label">Buttons</span>
         </button>
-        <button
-          onClick={() => setSelectedTab('qr-code')}
-          classList={{ active: selectedTab() == 'qr-code' }}
-          style={{ 'background-color': `hsl(var(--p)/0.2)` }}
-        >
-          <span class="btm-nav-label">QR Code</span>
-        </button>
-        <button
-          onClick={() => setSelectedTab('popup')}
-          classList={{ active: selectedTab() == 'popup' }}
-          style={{ 'background-color': `hsl(var(--p)/0.2)` }}
-        >
-          <span class="btm-nav-label">Popups</span>
-        </button>
+        {checkIfAvailable('showScanQrPopup') && (
+          <button
+            onClick={() => setSelectedTab('qr-code')}
+            classList={{ active: selectedTab() == 'qr-code' }}
+            style={{ 'background-color': `hsl(var(--p)/0.2)` }}
+          >
+            <span class="btm-nav-label">QR Code</span>
+          </button>
+        )}
+        {checkIfAvailable('showPopup') && (
+          <button
+            onClick={() => setSelectedTab('popup')}
+            classList={{ active: selectedTab() == 'popup' }}
+            style={{ 'background-color': `hsl(var(--p)/0.2)` }}
+          >
+            <span class="btm-nav-label">Popups</span>
+          </button>
+        )}
         <button
           onClick={() => setSelectedTab('logs')}
           classList={{ active: selectedTab() == 'logs' }}
