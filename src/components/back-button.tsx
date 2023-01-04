@@ -1,20 +1,17 @@
-import { onCleanup, onMount } from 'solid-js'
-import { createBackButtonSignal } from '../signals/back-button'
-import { createHapticImpactSignal } from '../signals/haptic'
+import { onCleanup } from 'solid-js'
+import { useBackButton } from '../api/back-button'
+import { createHapticImpact } from '../api/haptic'
 
 export type BackButtonProps = {
   onClick?: () => void
-  hapticForce?: Parameters<typeof createHapticImpactSignal>[0]
+  hapticForce?: Parameters<typeof createHapticImpact>[0]
 }
 
 export function BackButton(props: BackButtonProps) {
-  const backButton = createBackButtonSignal({
+  const backButton = useBackButton({
     onClick: props.onClick,
     hapticForce: props.hapticForce,
-  })
-
-  onMount(() => {
-    backButton.setVisible(true)
+    show: true,
   })
 
   onCleanup(() => {

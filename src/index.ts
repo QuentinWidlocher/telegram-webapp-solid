@@ -18,25 +18,41 @@ export { QrCodeButton } from './components/qr-code-button'
 export type { QrCodeButtonProps } from './components/qr-code-button'
 export { StableContainer } from './components/stable-container'
 export type { StableContainerProps } from './components/stable-container'
+export { VersionContainer } from './components/version-container'
 
-export { createBackButtonSignal } from './signals/back-button'
-export { createDataSignal } from './signals/data'
-export { createExpandSignal } from './signals/expand'
+export { useBackButton } from './api/back-button'
+export type { UseBackButtonProps } from './api/back-button'
+export { useData, getData, sendData } from './api/data'
 export {
-  createHapticImpactSignal,
-  createHapticSelectionSignal,
-} from './signals/haptic'
-export { createLifecycleSignal } from './signals/lifecycle'
-export { createMainButtonSignal } from './signals/main-button'
-export { createOpenSignal } from './signals/open'
-export { createPromptQrCodeScanSignal } from './signals/qr-code'
-export { createThemeSignal } from './signals/theme'
-export { createUserSignal } from './signals/user'
-export { createVersionSignal } from './signals/version'
+  createHapticImpact,
+  createHapticSelection,
+  hapticImpact,
+  hapticSelection,
+} from './api/haptic'
+export type { HapticForce } from './api/haptic'
+export { useLifecycle, close, ready } from './api/lifecycle'
+export { useMainButton, originalText } from './api/main-button'
+export type { UseMainButtonProps } from './api/main-button'
 export {
-  createViewportHeightSignal,
-  createViewportStableHeightSignal,
-} from './signals/viewport'
+  useOpenFunctions,
+  onInvoiceClosed,
+  openInvoice,
+  openLink,
+  openTelegramLink,
+} from './api/open'
+export { createPromptQrCodeScan, promptQrCodeScan } from './api/qr-code'
+export { useTheme } from './api/theme'
+export { useUser, getUser } from './api/user'
+export {
+  useVersion,
+  checkIfAvailable,
+  isVersionAtLeast,
+  apiVersions,
+} from './api/version'
+export type { APIVersion } from './api/version'
+export { useViewport } from './api/viewport'
+
+export { TelegramAPIProvider, useTelegramAPI } from './context/context'
 
 declare global {
   export interface Window {

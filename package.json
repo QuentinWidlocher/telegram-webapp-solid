@@ -1,6 +1,7 @@
 {
   "name": "telegram-webapp-solid",
-  "version": "0.7.4",
+  "version": "0.8.0",
+  "type": "module",
   "description": "SolidJS components for Telegram WebApps",
   "repository": {
     "type": "git",
@@ -28,16 +29,17 @@
   "dependencies": {
     "solid-js": "^1.6.6"
   },
+  "peerDependencies": {
+    "solid-js": "^1.6.6"
+  },
   "files": [
     "dist"
   ],
-  "main": "./dist/telegram-webapp-solid.umd.js",
-  "module": "./dist/telegram-webapp-solid.mjs",
+  "module": "./dist/telegram-webapp-solid.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/telegram-webapp-solid.mjs",
-      "require": "./dist/telegram-webapp-solid.umd.js"
+      "import": "./dist/telegram-webapp-solid.js"
     }
   }
 }

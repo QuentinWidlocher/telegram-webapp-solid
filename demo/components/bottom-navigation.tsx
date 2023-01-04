@@ -1,4 +1,4 @@
-import { createVersionSignal } from '../../src'
+import { VersionContainer } from '../../src'
 
 export type Tab = 'buttons' | 'qr-code' | 'popup' | 'logs'
 
@@ -7,8 +7,6 @@ export function BottomNavigation(props: {
   enableLogs?: boolean
   onSelectedTabChange: (tab: Tab) => void
 }) {
-  const { checkIfAvailable } = createVersionSignal()
-
   return (
     <div class="btm-nav text-primary">
       <button
@@ -18,7 +16,7 @@ export function BottomNavigation(props: {
       >
         <span class="btm-nav-label">Buttons</span>
       </button>
-      {(import.meta.env.DEV || checkIfAvailable('showScanQrPopup')) && (
+      <VersionContainer ifAvailable="showScanQrPopup">
         <button
           onClick={() => props.onSelectedTabChange('qr-code')}
           classList={{ active: props.selectedTab == 'qr-code' }}
@@ -26,8 +24,8 @@ export function BottomNavigation(props: {
         >
           <span class="btm-nav-label">QR Code</span>
         </button>
-      )}
-      {(import.meta.env.DEV || checkIfAvailable('showPopup')) && (
+      </VersionContainer>
+      <VersionContainer ifAvailable="showPopup">
         <button
           onClick={() => props.onSelectedTabChange('popup')}
           classList={{ active: props.selectedTab == 'popup' }}
@@ -35,7 +33,7 @@ export function BottomNavigation(props: {
         >
           <span class="btm-nav-label">Popups</span>
         </button>
-      )}
+      </VersionContainer>
       {props.enableLogs && (
         <button
           onClick={() => props.onSelectedTabChange('logs')}

@@ -1,7 +1,7 @@
 import hexToHsl from 'hex-to-hsl'
 import { Component, createSignal, Match, Switch } from 'solid-js'
 import { StableContainer } from '../src/components/stable-container'
-import { createThemeSignal } from '../src/signals/theme'
+import { useTheme } from '../src/api/theme'
 import { BottomNavigation, Tab } from './components/bottom-navigation'
 import { logger } from './logger'
 import { DefaultPage } from './pages/DefaultPage'
@@ -22,14 +22,8 @@ function hexToDarkerCssHsl(hex: string) {
   return `${h} ${s}% ${l * 0.8}%`
 }
 
-function hexToEvenDarkerCssHsl(hex: string) {
-  if (!hex) return
-  const [h, s, l] = hexToHsl(hex)
-  return `${h} ${s}% ${l * 0.6}%`
-}
-
 const App: Component = () => {
-  const { theme } = createThemeSignal()
+  const { theme } = useTheme()
   const [selectedTab, setSelectedTab] = createSignal<Tab | null>(null)
 
   addEventListener('error', (event) => {
@@ -48,8 +42,8 @@ const App: Component = () => {
         '--nf': hexToDarkerCssHsl(theme()?.themeParams?.bg_color),
         '--nc': hexToCssHsl(theme()?.themeParams?.text_color),
         '--b1': hexToCssHsl(theme()?.themeParams?.bg_color),
-        '--b2': hexToDarkerCssHsl(theme()?.themeParams?.bg_color),
-        '--b3': hexToEvenDarkerCssHsl(theme()?.themeParams?.bg_color),
+        '--b2': hexToCssHsl(theme()?.themeParams?.secondary_bg_color),
+        '--b3': hexToDarkerCssHsl(theme()?.themeParams?.secondary_bg_color),
         '--bc': hexToCssHsl(theme()?.themeParams?.text_color),
         'overflow-y': 'auto',
       }}
@@ -74,6 +68,7 @@ const App: Component = () => {
       <BottomNavigation
         selectedTab={selectedTab()}
         onSelectedTabChange={setSelectedTab}
+        enableLogs
       />
     </StableContainer>
   )

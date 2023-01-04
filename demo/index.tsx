@@ -3,5 +3,13 @@ import './index.css'
 import { render } from 'solid-js/web'
 
 import App from './App'
+import { TelegramAPIProvider } from '../src/context/context'
 
-render(() => <App />, document.getElementById('root') as HTMLElement)
+render(
+  () => (
+    <TelegramAPIProvider>
+      <App />
+    </TelegramAPIProvider>
+  ),
+  document.getElementById('root') as HTMLElement,
+)

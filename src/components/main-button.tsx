@@ -1,6 +1,6 @@
-import { createEffect, onCleanup, onMount } from 'solid-js'
-import { createHapticImpactSignal } from '../signals/haptic'
-import { createMainButtonSignal } from '../signals/main-button'
+import { createEffect, onCleanup, useContext } from 'solid-js'
+import { createHapticImpact } from '../api/haptic'
+import { useMainButton } from '../api/main-button'
 
 export type MainButtonProps = {
   onClick?: () => void
@@ -9,11 +9,11 @@ export type MainButtonProps = {
   progressVisible?: boolean
   mandatory?: boolean
   onMandatoryChange?: (mandatory: boolean) => void
-  hapticForce?: Parameters<typeof createHapticImpactSignal>[0]
+  hapticForce?: Parameters<typeof createHapticImpact>[0]
 }
 
 export function MainButton(props: MainButtonProps) {
-  const mainButton = createMainButtonSignal({
+  const mainButton = useMainButton({
     onClick: props.onClick,
     text: props.text,
     hapticForce: props.hapticForce,
@@ -28,6 +28,7 @@ export function MainButton(props: MainButtonProps) {
   })
 
   onCleanup(() => {
+    console.log('main button cleanup, we hide')
     mainButton.setVisible(false)
     mainButton.setActive(true)
     mainButton.setProgressVisible(false)

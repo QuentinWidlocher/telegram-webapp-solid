@@ -1,10 +1,14 @@
 import { Show } from 'solid-js'
-import { createExpandSignal, createUserSignal, HapticButton } from '../../src'
+import { useViewport, useUser, HapticButton, getUser } from '../../src'
 import { ColorSwatch } from '../components/color-swatch'
+import { logger } from '../logger'
 
 export function DefaultPage() {
-  const [expanded, expand] = createExpandSignal()
-  const user = createUserSignal()
+  const viewport = useViewport({
+    onExpand: () => logger.log('Viewport Expanded'),
+    onCollapse: () => logger.log('Viewport Collapsed'),
+  })
+  const user = getUser()
 
   return (
     <div class="my-auto flex flex-col">
@@ -12,16 +16,16 @@ export function DefaultPage() {
         class="text-center w-full"
         style={{ color: 'var(--tg-theme-hint-color)' }}
       >
-        Hi {user()?.first_name ?? ''}, welcome to the demo app. <br />
+        Hi {user?.first_name ?? ''}, welcome to the demo app. <br />
         You're currently using the {
           window.Telegram.WebApp.platform
         } platform. <br />
         Select a tab to browse through examples.
       </p>
-      <Show when={!expanded()}>
+      <Show when={!viewport.expanded()}>
         <HapticButton
           class="btn btn-primary btn-outline w-full mt-5"
-          onClick={() => expand()}
+          onClick={() => viewport.expand()}
         >
           Expand to see the tabs
         </HapticButton>

@@ -1,18 +1,17 @@
-import { mergeProps } from "solid-js";
-import { JSX } from "solid-js/jsx-runtime";
-import { createHapticSelectionSignal } from "../signals/haptic";
+import { mergeProps } from 'solid-js'
+import { JSX } from 'solid-js/jsx-runtime'
+import { hapticSelection } from '../api/haptic'
 
 export type HapticInputProps = JSX.InputHTMLAttributes<HTMLInputElement> & {
-  children?: JSX.Element;
-};
+  children?: JSX.Element
+}
 
 export function HapticInput(props: HapticInputProps) {
-  const hapticSelectionSignal = createHapticSelectionSignal();
   const merged = mergeProps(props, {
     onselectionchange: (e) => {
-      hapticSelectionSignal();
+      hapticSelection()
     },
-  });
+  })
 
-  return <input {...merged}>{props.children}</input>;
+  return <input {...merged}>{props.children}</input>
 }

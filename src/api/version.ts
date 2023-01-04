@@ -1,7 +1,7 @@
 import type { WebApp } from '../types/telegram-webapp'
 
-const versions = ['6.1', '6.2', '6.3', '6.4'] as const
-type Version = typeof versions[number]
+export const apiVersions = ['6.1', '6.2', '6.3', '6.4'] as const
+export type APIVersion = typeof apiVersions[number]
 
 const versionOf = {
   initData: null,
@@ -38,21 +38,24 @@ const versionOf = {
   ready: null,
   expand: null,
   close: null,
-} as Record<keyof WebApp, Version | null>
+} as Record<keyof WebApp, APIVersion | null>
 
-export function createVersionSignal() {
+export function checkIfAvailable(property: keyof WebApp) {
+  if (versionOf[property] == null || isVersionAtLeast(versionOf[property])) {
+    return true
+  } else {
+    return false
+  }
+}
+
+const getVersion = () => window.Telegram.WebApp.version
+
+export const isVersionAtLeast = window.Telegram.WebApp.isVersionAtLeast
+
+export function useVersion() {
   return {
-    version: () => window.Telegram.WebApp.version,
-    isVersionAtLeast: window.Telegram.WebApp.isVersionAtLeast,
-    checkIfAvailable(property: keyof WebApp) {
-      if (
-        versionOf[property] == null ||
-        window.Telegram.WebApp.isVersionAtLeast(versionOf[property])
-      ) {
-        return true
-      } else {
-        return false
-      }
-    },
+    version: getVersion(),
+    isVersionAtLeast,
+    checkIfAvailable,
   }
 }

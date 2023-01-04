@@ -5,7 +5,6 @@ export type StableContainerProps = JSX.HTMLAttributes<HTMLElement> & {
 }
 
 export function StableContainer(props: StableContainerProps) {
-  console.log(typeof props.style == 'object' ? props.style : {})
   return (
     <main
       {...props}

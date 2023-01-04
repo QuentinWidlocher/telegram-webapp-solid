@@ -1,6 +1,6 @@
 import { mergeProps } from 'solid-js'
 import { JSX } from 'solid-js/jsx-runtime'
-import { createPromptQrCodeScanSignal } from '../signals/qr-code'
+import { promptQrCodeScan } from '../api/qr-code'
 
 export type QrCodeButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: JSX.Element
@@ -9,7 +9,6 @@ export type QrCodeButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 export function QrCodeButton(props: QrCodeButtonProps) {
-  const promptQrCodeScan = createPromptQrCodeScanSignal()
   const merged = mergeProps(props, {
     onClick: (e) => {
       promptQrCodeScan(props.message).then((result) => {

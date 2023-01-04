@@ -1,13 +1,13 @@
 import { createSignal, Show } from 'solid-js'
 import {
-  createHapticImpactSignal,
+  createHapticImpact,
   HapticInput,
   HapticButton,
   MainButton,
   BackButton,
-  createVersionSignal,
 } from '../../src'
-import { originalText } from '../../src/signals/main-button'
+import { originalText } from '../../src/api/main-button'
+import { checkIfAvailable } from '../../src/api/version'
 import { Collapse } from '../components/collapse'
 import { logger } from '../logger'
 
@@ -25,11 +25,9 @@ export function ButtonsPage() {
   ] = createSignal(false)
 
   const [mainButtonHapticForce, setMainButtonHapticForce] = createSignal(true)
-  const hapticSignal = createHapticImpactSignal('medium')
+  const hapticImpact = createHapticImpact('medium')
 
   const [showBackButton, setShowBackButton] = createSignal(false)
-
-  const { checkIfAvailable } = createVersionSignal()
 
   return (
     <div class="flex flex-col space-y-2">
@@ -63,7 +61,7 @@ export function ButtonsPage() {
               class="toggle toggle-primary"
               onChange={(e) => {
                 if (e.currentTarget.checked) {
-                  hapticSignal()
+                  hapticImpact()
                 }
                 setMainButtonHapticForce(e.currentTarget.checked)
               }}
@@ -79,7 +77,7 @@ export function ButtonsPage() {
               class="toggle toggle-primary"
               onChange={(e) => {
                 if (e.currentTarget.checked) {
-                  hapticSignal()
+                  hapticImpact()
                 }
                 setMainButtonProgressVisible(e.currentTarget.checked)
               }}
@@ -95,7 +93,7 @@ export function ButtonsPage() {
               class="toggle toggle-primary"
               onChange={(e) => {
                 if (e.currentTarget.checked) {
-                  hapticSignal()
+                  hapticImpact()
                 }
                 setMainButtonActive(e.currentTarget.checked)
               }}
@@ -113,7 +111,7 @@ export function ButtonsPage() {
               class="toggle toggle-primary"
               onChange={(e) => {
                 if (e.currentTarget.checked) {
-                  hapticSignal()
+                  hapticImpact()
                 }
                 setMainButtonMandatory(e.currentTarget.checked)
               }}
