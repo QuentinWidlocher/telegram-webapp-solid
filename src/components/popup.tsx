@@ -1,8 +1,22 @@
 import { createSignal, onCleanup, onMount } from 'solid-js'
-import type { PopupParams } from '../types/telegram-webapp'
+import type {
+  OneToThree,
+  PopupButton,
+  PopupParams,
+} from '../types/telegram-webapp'
 
-export type PopupProps = PopupParams & {
+type ClickablePopupButton = {
+  id?: PopupButton['id']
+  text?: PopupButton['text']
+  type?: PopupButton['type']
+  onClick?: () => void
+}
+
+export type PopupProps = {
+  title?: PopupParams['title']
+  message: PopupParams['message']
   onButtonClick?: (id: string) => void
+  buttons: OneToThree<ClickablePopupButton>
 }
 
 const [alreadyOpened, setAlreadyOpened] = createSignal(false)
@@ -19,7 +33,8 @@ export function Popup(props: PopupProps) {
           title: props.title,
         },
         (id) => {
-          props.onButtonClick(id)
+          props.onButtonClick?.(id)
+          props.buttons.find((btn) => btn.id == id)?.onClick?.()
         },
       )
       setAlreadyOpened(true)

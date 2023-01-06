@@ -1,10 +1,9 @@
 import { createSignal, mergeProps, Show } from 'solid-js'
 import { JSX } from 'solid-js/jsx-runtime'
-import { PopupParams } from '../types/telegram-webapp'
-import { Popup } from './popup'
+import { Popup, PopupProps } from './popup'
 
 export type PopupButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> &
-  PopupParams & {
+  PopupProps & {
     children: JSX.Element
     onPopupClose?: (buttonId: string) => void
   }

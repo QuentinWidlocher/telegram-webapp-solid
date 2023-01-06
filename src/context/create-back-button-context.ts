@@ -1,4 +1,4 @@
-import { Accessor, Setter, createSignal, createEffect } from 'solid-js'
+import { createSignal, createEffect } from 'solid-js'
 
 export type BackButtonContext = ReturnType<typeof createBackButtonContext>
 

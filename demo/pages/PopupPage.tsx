@@ -1,6 +1,9 @@
 import { createSignal, For } from 'solid-js'
 import { PopupButton, AlertButton, ConfirmButton } from '../../src'
-import type { PopupButton as PopupButtonType } from '../../src/types/telegram-webapp'
+import type {
+  OneToThree,
+  PopupButton as PopupButtonType,
+} from '../../src/types/telegram-webapp'
 import { Collapse } from '../components/collapse'
 
 const allButtonTypes = [
@@ -30,6 +33,7 @@ export function PopupPage() {
         text: `${type[0].toUpperCase()}${type.slice(1)}`,
         type,
       }))
+      .slice(0, 3) as OneToThree<PopupButtonType>
 
   let buttonTypeDisabled = (type: PopupButtonType['type']) =>
     (buttonTypes().length == 1 && buttonTypes().includes(type)) ||

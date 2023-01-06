@@ -1,4 +1,5 @@
-type HexString = `#${string}`
+export type HexString = `#${string}`
+export type OneToThree<T> = [T] | [T, T] | [T, T, T]
 
 export declare interface WebApp {
   /**
@@ -520,7 +521,7 @@ export declare interface PopupParams {
    * List of buttons to be displayed in the popup, 1-3 buttons.
    * @default [{“type”:“close”}]
    */
-  buttons?: PopupButton[]
+  buttons?: OneToThree<PopupButton>
 }
 
 export declare interface ScanQrPopupParams {
